@@ -26,10 +26,10 @@ export default function FloatingNav({ activeSection }: FloatingNavProps) {
       {/* Desktop Navigation */}
       <nav
         id="floating-nav"
-        className="fixed left-1/2 transform -translate-x-1/2 bottom-4 z-50"
+        className="fixed left-4 top-1/2 transform -translate-y-1/2 z-50"
       >
         <div
-          className="glass-effect rounded-full shadow-2xl p-2 flex space-x-2"
+          className="glass-effect rounded-full shadow-2xl p-2 flex flex-col space-y-2"
           style={{
             backgroundColor: "rgba(30, 30, 30, 0.5)",
             backdropFilter: "blur(5px)",
