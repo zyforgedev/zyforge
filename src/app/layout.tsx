@@ -38,7 +38,7 @@ export const metadata: Metadata = {
       "Professional web development service with no upfront payment required. Modern, responsive, and high-performance websites.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "ZyForge - Web Development Excellence",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     title: "ZyForge - Enterprise Web Development Solutions",
     description:
       "Professional web development service with no upfront payment required.",
-    images: ["/twitter-image.jpg"],
+    images: ["/og-image.png"],
     creator: "@zyforge",
   },
   viewport: {
