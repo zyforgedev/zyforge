@@ -12,20 +12,20 @@ export default function About() {
 
   const benefits = [
     {
-      text: "No upfront payment — risk-free for you",
-      icon: "🛡️",
+      text: "Direct collaboration with a dedicated developer",
+      icon: "🤝",
     },
     {
-      text: "Mobile-first, SEO-friendly designs",
-      icon: "📱",
-    },
-    {
-      text: "Affordable packages for startups & small businesses",
+      text: "Flexible and affordable pricing for any budget",
       icon: "💰",
     },
     {
-      text: "Clear communication & fast turnaround times",
-      icon: "⚡",
+      text: "Focus on quality, performance, and user experience",
+      icon: "✨",
+    },
+    {
+      text: "Personalized service and fast communication",
+      icon: "💬",
     },
   ];
 
@@ -65,16 +65,18 @@ export default function About() {
               Ready to Launch?
             </h3>
             <p className="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">
-              From sleek landing pages to powerful web applications, ZyForge
-              helps bring your ideas to life — on time, on budget, and built to
-              perform.
+              As a freelance developer, I am dedicated to helping startups and
+              small businesses succeed online. Let's work together to bring your
+              vision to life.
             </p>
-            <CTAButton
-              targetSection="contact"
-              className="w-full sm:w-auto text-sm sm:text-base px-6 py-3"
-            >
-              Get Started Today
-            </CTAButton>
+            <div className="relative z-10">
+              <CTAButton
+                targetSection="contact"
+                className="w-full sm:w-auto text-sm sm:text-base px-6 py-3"
+              >
+                Get Started Today
+              </CTAButton>
+            </div>
           </div>
         </div>
       </div>

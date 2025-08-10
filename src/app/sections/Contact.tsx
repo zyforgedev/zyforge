@@ -69,10 +69,10 @@ export default function Contact() {
 
   const budgetOptions = [
     { value: "", label: "Select budget" },
-    { value: "1k-3k", label: "$1,000 - $3,000" },
-    { value: "3k-5k", label: "$3,000 - $5,000" },
-    { value: "5k-10k", label: "$5,000 - $10,000" },
-    { value: "10k+", label: "$10,000+" },
+    { value: "1k-5k", label: "₱1,000 - ₱5,000" },
+    { value: "5k-10k", label: "₱5,000 - ₱10,000" },
+    { value: "10k-20k", label: "₱10,000 - ₱20,000" },
+    { value: "20k+", label: "₱20,000+" },
   ];
 
   return (
@@ -165,12 +165,12 @@ export default function Contact() {
                   options={projectTypeOptions}
                 />
                 <FormInput
-                  label="Budget Range"
+                  label="Budget (in ₱)"
                   name="budget"
-                  type="select"
+                  type="text"
                   value={formData.budget}
                   onChange={handleInputChange}
-                  options={budgetOptions}
+                  placeholder="e.g., 10000"
                 />
               </div>
 

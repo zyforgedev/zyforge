@@ -9,11 +9,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ZyForge - Enterprise Web Development Solutions",
+  title: "ZyForge - Web Development for Startups and Small Businesses",
   description:
-    "Professional freelance web development service delivering modern, responsive, and high-performance websites with no upfront payment required. Enterprise-grade solutions for startups and businesses.",
+    "Affordable and professional web development services for startups, small businesses, and individuals. Get a modern, responsive, and high-performance website without breaking the bank.",
   keywords:
-    "web development, freelance, responsive design, web applications, WordPress, CMS, website optimization, enterprise solutions",
+    "web development, freelance, responsive design, web applications, small business websites, startup websites, affordable web design",
   authors: [{ name: "ZyForge" }],
   creator: "ZyForge",
   publisher: "ZyForge",
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://zyforge.com",
     siteName: "ZyForge",
-    title: "ZyForge - Enterprise Web Development Solutions",
+    title: "ZyForge - Web Development for Startups and Small Businesses",
     description:
-      "Professional web development service with no upfront payment required. Modern, responsive, and high-performance websites.",
+      "Affordable and professional web development services for startups, small businesses, and individuals.",
     images: [
       {
         url: "/og-image.png",
@@ -47,9 +47,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ZyForge - Enterprise Web Development Solutions",
+    title: "ZyForge - Web Development for Startups and Small Businesses",
     description:
-      "Professional web development service with no upfront payment required.",
+      "Affordable and professional web development services for startups, small businesses, and individuals.",
     images: ["/og-image.png"],
     creator: "@zyforge",
   },

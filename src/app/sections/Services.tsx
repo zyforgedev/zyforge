@@ -12,52 +12,43 @@ export default function Services() {
 
   const services = [
     {
-      title: "Custom Website Design & Development",
+      title: "Custom Website Development",
       description:
-        "Bespoke websites tailored to your brand and business needs with modern design principles",
+        "From simple landing pages to full-featured websites, I build sites that are fast, responsive, and tailored to your needs.",
       icon: "🎨",
       features: [
         "Responsive Design",
         "Custom UI/UX",
-        "Brand Integration",
+        "Content Management",
         "Performance Optimized",
       ],
+      price: "Starts at ₱1,000",
     },
     {
-      title: "Web App Development",
+      title: "E-commerce Solutions",
       description:
-        "Scalable web applications built with cutting-edge frameworks and technologies",
-      icon: "⚡",
+        "Sell your products online with a beautiful and easy-to-use e-commerce website.",
+      icon: "🛒",
       features: [
-        "React/Next.js",
-        "Database Integration",
-        "API Development",
-        "Real-time Features",
+        "Shopify Integration",
+        "Payment Gateway Setup",
+        "Product Management",
+        "Secure Checkout",
       ],
+      price: "Starts at ₱5,000",
     },
     {
-      title: "WordPress & CMS Solutions",
+      title: "Website Maintenance & Support",
       description:
-        "Easy-to-manage content management systems that empower your team",
-      icon: "📝",
-      features: [
-        "Custom Themes",
-        "Plugin Development",
-        "SEO Optimization",
-        "Training Included",
-      ],
-    },
-    {
-      title: "Website Optimization & Maintenance",
-      description:
-        "Keep your site fast, secure, and running smoothly with ongoing support",
+        "Keep your website running smoothly with ongoing maintenance and support.",
       icon: "🔧",
       features: [
-        "Speed Optimization",
+        "Regular Backups",
         "Security Updates",
         "Content Updates",
-        "24/7 Monitoring",
+        "Performance Monitoring",
       ],
+      price: "Starts at ₱500 / month",
     },
   ];
 
@@ -70,7 +61,7 @@ export default function Services() {
         isVisible={isVisible}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
         {services.map((service, index) => (
           <Card
             key={index}
@@ -93,6 +84,12 @@ export default function Services() {
             </div>
 
             <FeatureList features={service.features} />
+
+            <div className="mt-6 text-center">
+              <p className="text-lg font-bold text-orange-400">
+                {service.price}
+              </p>
+            </div>
 
             {/* Hover effect overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import CTAButton from "../components/CTAButton";
 
 export default function Process() {
   const [isVisible, setIsVisible] = useState(false);
@@ -165,7 +166,7 @@ export default function Process() {
           }`}
           style={{ animationDelay: "1.2s" }}
         >
-          <div className="gradient-border p-6 sm:p-8 max-w-2xl mx-auto">
+          <div className="gradient-border p-6 sm:p-8 max-w-2xl mx-auto relative">
             <h3 className="text-2xl sm:text-3xl font-bold mb-4">
               Ready to Get Started?
             </h3>
@@ -173,17 +174,14 @@ export default function Process() {
               Let's discuss your project and how we can bring your vision to
               life with our proven process.
             </p>
-            <button
-              onClick={() => {
-                const element = document.getElementById("contact");
-                if (element) {
-                  element.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-              className="btn-primary w-full sm:w-auto text-sm sm:text-base px-8 py-4"
-            >
-              Start Your Project
-            </button>
+            <div className="relative z-10">
+              <CTAButton
+                targetSection="contact"
+                className="w-full sm:w-auto text-sm sm:text-base px-8 py-4"
+              >
+                Start Your Project
+              </CTAButton>
+            </div>
           </div>
         </div>
       </div>

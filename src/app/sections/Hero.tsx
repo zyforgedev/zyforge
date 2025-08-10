@@ -43,12 +43,9 @@ export default function Hero() {
         </div>
 
         <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 leading-relaxed font-light px-4">
-          Freelance web development service delivering modern, responsive, and
-          high-performance websites — with{" "}
-          <span className="gradient-text font-semibold">
-            no upfront payment required
-          </span>
-          .
+          Your partner in building a strong online presence. I create modern,
+          responsive, and high-performance websites for startups, small
+          businesses, and individuals.
         </p>
 
         <p className="text-base sm:text-lg text-gray-400 mb-10 sm:mb-12 max-w-2xl mx-auto px-4">
