@@ -1,0 +1,220 @@
+"use client";
+
+import { useState } from "react";
+import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
+import AnimatedSection from "../components/AnimatedSection";
+import SectionHeader from "../components/SectionHeader";
+import IconWithText from "../components/IconWithText";
+import Card from "../components/Card";
+import FormInput from "../components/FormInput";
+
+export default function Contact() {
+  const { isVisible, sectionRef } = useIntersectionObserver();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    projectType: "",
+    budget: "",
+    message: "",
+  });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    alert("Thank you for your message! We'll get back to you soon.");
+  };
+
+  const contactInfo = [
+    {
+      icon: "📧",
+      text: "Email",
+      subtitle: "zyforge@gmail.com\nSend us your project details",
+    },
+    {
+      icon: "⚡",
+      text: "Response Time",
+      subtitle: "Within 24 hours\nQuick turnaround guaranteed",
+    },
+    {
+      icon: "🌍",
+      text: "Location",
+      subtitle: "Remote Worldwide\nServing clients globally",
+    },
+    {
+      icon: "💰",
+      text: "Payment",
+      subtitle: "No upfront costs\nPay only when satisfied",
+    },
+  ];
+
+  const projectTypeOptions = [
+    { value: "", label: "Select a service" },
+    { value: "website", label: "Custom Website" },
+    { value: "webapp", label: "Web Application" },
+    { value: "wordpress", label: "WordPress/CMS" },
+    { value: "optimization", label: "Optimization" },
+    { value: "other", label: "Other" },
+  ];
+
+  const budgetOptions = [
+    { value: "", label: "Select budget" },
+    { value: "1k-3k", label: "$1,000 - $3,000" },
+    { value: "3k-5k", label: "$3,000 - $5,000" },
+    { value: "5k-10k", label: "$5,000 - $10,000" },
+    { value: "10k+", label: "$10,000+" },
+  ];
+
+  return (
+    <AnimatedSection id="contact" backgroundColor="#2F2F2F" ref={sectionRef}>
+      <SectionHeader
+        title="Let's Forge Your"
+        highlightText="Vision"
+        subtitle="Ready to transform your ideas into reality? Get in touch and let's discuss your project."
+        isVisible={isVisible}
+      />
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+        {/* Contact Info */}
+        <div
+          className={`space-y-8 ${
+            isVisible ? "animate-fadeInLeft" : "loading"
+          }`}
+        >
+          <div>
+            <h3 className="text-2xl sm:text-3xl font-bold mb-6 text-white">
+              Get in Touch
+            </h3>
+            <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-8">
+              Ready to start your project? Send us a message and we'll respond
+              within 24 hours with a personalized proposal.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            {contactInfo.map((item, index) => (
+              <div
+                key={index}
+                className="flex items-start space-x-4 p-4 rounded-lg hover:bg-gray-700/30 transition-colors duration-300"
+              >
+                <div className="text-2xl flex-shrink-0">{item.icon}</div>
+                <div>
+                  <h4 className="font-semibold text-white text-lg">
+                    {item.text}
+                  </h4>
+                  {item.subtitle.split("\n").map((line, i) => (
+                    <p
+                      key={i}
+                      className={
+                        i === 0
+                          ? "text-orange-400 font-medium"
+                          : "text-gray-400 text-sm"
+                      }
+                    >
+                      {line}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Contact Form */}
+        <div className={`${isVisible ? "animate-fadeInRight" : "loading"}`}>
+          <Card backgroundColor="#3A3A3A" hoverEffect={false}>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FormInput
+                  label="Name"
+                  name="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  placeholder="Your name"
+                  required
+                />
+                <FormInput
+                  label="Email"
+                  name="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="your@email.com"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <FormInput
+                  label="Project Type"
+                  name="projectType"
+                  type="select"
+                  value={formData.projectType}
+                  onChange={handleInputChange}
+                  options={projectTypeOptions}
+                />
+                <FormInput
+                  label="Budget Range"
+                  name="budget"
+                  type="select"
+                  value={formData.budget}
+                  onChange={handleInputChange}
+                  options={budgetOptions}
+                />
+              </div>
+
+              <FormInput
+                label="Project Description"
+                name="message"
+                type="textarea"
+                value={formData.message}
+                onChange={handleInputChange}
+                placeholder="Tell us about your project, goals, and any specific requirements..."
+                rows={5}
+                required
+              />
+
+              <button
+                type="submit"
+                className="btn-primary w-full text-base py-4 font-semibold"
+              >
+                Send Project Details
+              </button>
+            </form>
+          </Card>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer
+        className={`text-center mt-16 sm:mt-20 pt-8 border-t border-gray-600 ${
+          isVisible ? "animate-fadeInUp" : "loading"
+        }`}
+        style={{ animationDelay: "0.6s" }}
+      >
+        <div className="mb-6">
+          <h3 className="text-2xl sm:text-3xl font-bold gradient-text mb-2">
+            ZyForge
+          </h3>
+          <p className="text-gray-400 text-sm sm:text-base">
+            Forging digital excellence, one project at a time.
+          </p>
+        </div>
+        <p className="text-gray-500 text-sm">
+          &copy; {new Date().getFullYear()} ZyForge. All rights reserved.
+        </p>
+      </footer>
+    </AnimatedSection>
+  );
+}
