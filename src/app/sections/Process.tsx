@@ -96,7 +96,7 @@ export default function Process() {
           {/* Timeline line - hidden on mobile */}
           <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-orange-500 to-orange-600"></div>
 
-          <div className="space-y-8 lg:space-y-16">
+          <div className="space-y-8 lg:space-y-4">
             {steps.map((step, index) => (
               <div
                 key={index}
@@ -116,7 +116,13 @@ export default function Process() {
                       index % 2 === 0 ? "lg:pr-12" : "lg:pl-12"
                     }`}
                   >
-                    <div className="bg-gray-800/50 p-6 sm:p-8 rounded-xl glass-effect group hover:bg-gray-700/50 transition-all duration-300">
+                    <div className="bg-gray-800/50 p-6 sm:p-8 rounded-xl glass-effect group hover:bg-gray-700/50 transition-all duration-300 relative">
+                      {/* Connecting line */}
+                      <div
+                        className={`hidden lg:block absolute top-1/2 -translate-y-1/2 w-12 h-0.5 bg-orange-500 ${
+                          index % 2 === 0 ? "-right-12" : "-left-12"
+                        }`}
+                      ></div>
                       <div className="flex items-center mb-4">
                         <div className="text-2xl sm:text-3xl mr-4 group-hover:scale-110 transition-transform duration-300">
                           {step.icon}

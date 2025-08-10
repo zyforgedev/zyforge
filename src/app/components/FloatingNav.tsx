@@ -24,7 +24,10 @@ export default function FloatingNav({ activeSection }: FloatingNavProps) {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="fixed left-1/2 transform -translate-x-1/2 bottom-4 z-50">
+      <nav
+        id="floating-nav"
+        className="fixed left-1/2 transform -translate-x-1/2 bottom-4 z-50"
+      >
         <div
           className="glass-effect rounded-full shadow-2xl p-2 flex space-x-2"
           style={{
