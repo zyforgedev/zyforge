@@ -143,6 +143,12 @@ export default function Process() {
                 Math.abs(currentPosition.x) > 0.01 ||
                 Math.abs(currentPosition.y) > 0.01;
 
+              // Enhanced 3D parallax calculations
+              const rotateX = currentPosition.y * -15; // Vertical tilt
+              const rotateY = currentPosition.x * 15; // Horizontal tilt
+              const translateZ = isHovering ? 20 : 0; // Z-depth movement
+              const scale = isHovering ? 1.02 : 1; // Subtle scale increase
+
               return (
                 <motion.div
                   key={index}
@@ -151,6 +157,7 @@ export default function Process() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
+                  style={{ perspective: "1200px" }}
                 >
                   <div
                     className={`flex flex-col lg:flex-row items-center ${
@@ -164,21 +171,28 @@ export default function Process() {
                       }`}
                     >
                       {/* Outer glow container */}
-                      <div className="relative">
-                        {/* Background glow - positioned outside the card */}
+                      <div
+                        className="relative"
+                        style={{ perspective: "1200px" }}
+                      >
+                        {/* Background glow - enhanced with 3D positioning */}
                         <motion.div
                           className="absolute -inset-8 opacity-0 rounded-2xl pointer-events-none"
                           style={{
-                            background: `radial-gradient(400px circle at ${
-                              50 + currentPosition.x * 30
+                            background: `radial-gradient(500px circle at ${
+                              50 + currentPosition.x * 40
                             }% ${
-                              50 + currentPosition.y * 30
-                            }%, rgba(255, 107, 26, 0.2), rgba(255, 179, 102, 0.15) 40%, transparent 70%)`,
-                            filter: "blur(30px)",
+                              50 + currentPosition.y * 40
+                            }%, rgba(255, 107, 26, 0.3), rgba(255, 179, 102, 0.2) 40%, transparent 70%)`,
+                            filter: "blur(40px)",
+                            transformStyle: "preserve-3d",
                           }}
                           animate={{
                             opacity: isHovering ? 1 : 0,
-                            scale: isHovering ? 1.05 : 1,
+                            scale: isHovering ? 1.1 : 1,
+                            rotateX: rotateX * 0.3,
+                            rotateY: rotateY * 0.3,
+                            z: translateZ * 0.5,
                           }}
                           transition={{
                             duration: 0.3,
@@ -195,25 +209,87 @@ export default function Process() {
                           onMouseLeave={() => handleMouseLeave(index)}
                           style={{
                             transformStyle: "preserve-3d",
-                            perspective: "1000px",
+                          }}
+                          animate={{
+                            rotateX,
+                            rotateY,
+                            z: translateZ,
+                            scale,
+                          }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 30,
+                            mass: 0.8,
                           }}
                         >
-                          {/* Localized scaling effect */}
+                          {/* Enhanced gradient overlay with parallax */}
                           <motion.div
-                            className="absolute inset-0 pointer-events-none"
+                            className="absolute inset-0 pointer-events-none rounded-xl"
                             style={{
-                              background: `radial-gradient(150px circle at ${
+                              background: `linear-gradient(${
+                                135 + currentPosition.x * 45
+                              }deg, rgba(255, 107, 26, 0.15) 0%, rgba(255, 179, 102, 0.1) 50%, transparent 80%)`,
+                              transform: `translateZ(10px)`,
+                            }}
+                            animate={{
+                              opacity: isHovering ? 1 : 0.3,
+                              scale: isHovering ? 1.05 : 1,
+                            }}
+                            transition={{
+                              duration: 0.4,
+                              ease: "easeOut",
+                            }}
+                          />
+
+                          {/* Floating particles effect */}
+                          {isHovering && (
+                            <>
+                              {[...Array(3)].map((_, i) => (
+                                <motion.div
+                                  key={i}
+                                  className="absolute w-1 h-1 bg-orange-400 rounded-full opacity-60"
+                                  style={{
+                                    left: `${20 + i * 30}%`,
+                                    top: `${30 + i * 20}%`,
+                                    transform: `translateZ(${15 + i * 5}px)`,
+                                  }}
+                                  animate={{
+                                    y: [0, -10, 0],
+                                    x: [0, Math.sin(i) * 5, 0],
+                                    opacity: [0.6, 1, 0.6],
+                                    scale: [1, 1.2, 1],
+                                  }}
+                                  transition={{
+                                    duration: 2 + i * 0.5,
+                                    repeat: Infinity,
+                                    ease: "easeInOut",
+                                    delay: i * 0.2,
+                                  }}
+                                />
+                              ))}
+                            </>
+                          )}
+
+                          {/* Localized scaling effect with enhanced 3D */}
+                          <motion.div
+                            className="absolute inset-0 pointer-events-none rounded-xl"
+                            style={{
+                              background: `radial-gradient(200px circle at ${
                                 50 + currentPosition.x * 50
                               }% ${
                                 50 + currentPosition.y * 50
-                              }%, rgba(255, 107, 26, 0.1) 0%, transparent 70%)`,
+                              }%, rgba(255, 107, 26, 0.2) 0%, rgba(255, 179, 102, 0.1) 40%, transparent 70%)`,
                               transformOrigin: `${
                                 50 + currentPosition.x * 50
                               }% ${50 + currentPosition.y * 50}%`,
+                              transform: `translateZ(5px)`,
                             }}
                             animate={{
-                              scale: isHovering ? 1.2 : 1,
+                              scale: isHovering ? 1.3 : 1,
                               opacity: isHovering ? 1 : 0,
+                              rotateX: rotateX * 0.5,
+                              rotateY: rotateY * 0.5,
                             }}
                             transition={{
                               type: "spring",
@@ -229,18 +305,24 @@ export default function Process() {
                             }`}
                           ></div>
 
-                          {/* Content container */}
-                          <div className="relative z-10">
+                          {/* Content container with layered 3D elements */}
+                          <div
+                            className="relative z-10"
+                            style={{ transform: `translateZ(15px)` }}
+                          >
                             <div className="flex items-center mb-4">
                               <motion.div
                                 className="text-2xl sm:text-3xl mr-4"
+                                style={{ transform: `translateZ(20px)` }}
                                 animate={{
                                   scale:
                                     1 +
                                     (isHovering
-                                      ? Math.abs(currentPosition.x) * 0.1 +
-                                        Math.abs(currentPosition.y) * 0.1
+                                      ? Math.abs(currentPosition.x) * 0.15 +
+                                        Math.abs(currentPosition.y) * 0.15
                                       : 0),
+                                  rotateX: currentPosition.y * -5,
+                                  rotateY: currentPosition.x * 5,
                                 }}
                                 transition={{
                                   type: "spring",
@@ -250,19 +332,27 @@ export default function Process() {
                               >
                                 {step.icon}
                               </motion.div>
-                              <div>
+                              <motion.div
+                                style={{ transform: `translateZ(10px)` }}
+                              >
                                 <div className="text-orange-400 font-mono text-sm sm:text-base font-semibold mb-1">
                                   {step.number}
                                 </div>
                                 <h3 className="text-xl sm:text-2xl font-bold text-white">
                                   {step.title}
                                 </h3>
-                              </div>
+                              </motion.div>
                             </div>
-                            <p className="text-sm sm:text-base text-gray-300 mb-4 leading-relaxed">
+                            <motion.p
+                              className="text-sm sm:text-base text-gray-300 mb-4 leading-relaxed"
+                              style={{ transform: `translateZ(8px)` }}
+                            >
                               {step.description}
-                            </p>
-                            <div className="flex items-center text-orange-400 text-sm font-semibold">
+                            </motion.p>
+                            <motion.div
+                              className="flex items-center text-orange-400 text-sm font-semibold"
+                              style={{ transform: `translateZ(12px)` }}
+                            >
                               <motion.div
                                 className="w-2 h-2 bg-orange-500 rounded-full mr-2"
                                 animate={{
@@ -271,21 +361,22 @@ export default function Process() {
                                     (isHovering
                                       ? (Math.abs(currentPosition.x) +
                                           Math.abs(currentPosition.y)) *
-                                        0.3
+                                        0.4
                                       : 0),
                                   boxShadow: isHovering
                                     ? `0 0 ${
-                                        10 +
+                                        15 +
                                         (Math.abs(currentPosition.x) +
                                           Math.abs(currentPosition.y)) *
-                                          15
+                                          20
                                       }px rgba(255, 107, 26, ${
-                                        0.6 +
+                                        0.8 +
                                         (Math.abs(currentPosition.x) +
                                           Math.abs(currentPosition.y)) *
-                                          0.3
+                                          0.2
                                       })`
                                     : "0 0 0px rgba(255, 107, 26, 0)",
+                                  rotateZ: currentPosition.x * 10,
                                 }}
                                 transition={{
                                   type: "spring",
@@ -294,34 +385,76 @@ export default function Process() {
                                 }}
                               />
                               {step.duration}
-                            </div>
+                            </motion.div>
                           </div>
+
+                          {/* Subtle border highlight with 3D effect */}
+                          <motion.div
+                            className="absolute inset-0 rounded-xl pointer-events-none"
+                            style={{
+                              border: "1px solid rgba(255, 107, 26, 0)",
+                              transform: `translateZ(25px)`,
+                            }}
+                            animate={{
+                              borderColor: isHovering
+                                ? "rgba(255, 107, 26, 0.4)"
+                                : "rgba(255, 107, 26, 0)",
+                            }}
+                            transition={{
+                              duration: 0.3,
+                              ease: "easeOut",
+                            }}
+                          />
                         </motion.div>
                       </div>
                     </div>
 
-                    {/* Timeline dot with enhanced hover effect */}
+                    {/* Timeline dot with enhanced 3D hover effect */}
                     <div className="hidden lg:flex w-2/12 justify-center relative z-10 my-4 lg:my-0">
                       <motion.div
                         className="w-4 h-4 bg-orange-500 rounded-full border-4 border-gray-900 shadow-lg relative"
+                        style={{ perspective: "200px" }}
                         whileHover={{
-                          scale: 1.5,
+                          scale: 1.8,
+                          rotateY: 180,
                           boxShadow:
-                            "0 0 20px rgba(255, 107, 26, 0.8), 0 0 40px rgba(255, 107, 26, 0.4)",
+                            "0 0 30px rgba(255, 107, 26, 1), 0 0 60px rgba(255, 107, 26, 0.6)",
                         }}
-                        transition={{ duration: 0.2 }}
+                        transition={{
+                          duration: 0.4,
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 20,
+                        }}
                       >
-                        {/* Pulsing ring effect */}
+                        {/* Enhanced pulsing ring effect */}
                         <motion.div
                           className="absolute inset-0 bg-orange-500 rounded-full opacity-30"
                           animate={{
-                            scale: [1, 1.8, 1],
-                            opacity: [0.3, 0, 0.3],
+                            scale: [1, 2.5, 1],
+                            opacity: [0.4, 0, 0.4],
+                            rotateZ: [0, 360, 0],
                           }}
                           transition={{
-                            duration: 2,
+                            duration: 3,
                             repeat: Infinity,
                             ease: "easeInOut",
+                          }}
+                        />
+
+                        {/* Secondary pulse ring */}
+                        <motion.div
+                          className="absolute inset-0 bg-orange-400 rounded-full opacity-20"
+                          animate={{
+                            scale: [1, 3.2, 1],
+                            opacity: [0.2, 0, 0.2],
+                            rotateZ: [0, -360, 0],
+                          }}
+                          transition={{
+                            duration: 4,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                            delay: 0.5,
                           }}
                         />
                       </motion.div>
@@ -345,36 +478,45 @@ export default function Process() {
           <motion.div
             className="gradient-border p-6 sm:p-8 max-w-2xl mx-auto relative overflow-hidden"
             whileHover={{
-              rotateX: 2,
-              scale: 1.02,
+              rotateX: 3,
+              rotateY: 2,
+              scale: 1.03,
+              z: 30,
             }}
             transition={{
-              duration: 0.3,
+              duration: 0.4,
               ease: "easeOut",
+              type: "spring",
+              stiffness: 300,
+              damping: 20,
             }}
             style={{
               perspective: "1000px",
               transformStyle: "preserve-3d",
             }}
           >
-            {/* Background glow for CTA section */}
+            {/* Enhanced background glow for CTA section */}
             <motion.div
               className="absolute inset-0 opacity-0"
               style={{
-                background: `radial-gradient(circle at center, rgba(255, 107, 26, 0.2) 0%, rgba(255, 179, 102, 0.1) 50%, transparent 80%)`,
-                filter: "blur(30px)",
+                background: `radial-gradient(circle at center, rgba(255, 107, 26, 0.3) 0%, rgba(255, 179, 102, 0.2) 50%, transparent 80%)`,
+                filter: "blur(40px)",
+                transform: `translateZ(-10px)`,
               }}
               whileHover={{
                 opacity: 1,
-                scale: 1.1,
+                scale: 1.2,
               }}
               transition={{
-                duration: 0.4,
+                duration: 0.5,
                 ease: "easeOut",
               }}
             />
 
-            <div className="relative z-10">
+            <div
+              className="relative z-10"
+              style={{ transform: `translateZ(20px)` }}
+            >
               <h3 className="text-2xl sm:text-3xl font-bold mb-4">
                 Ready to Get Started?
               </h3>
