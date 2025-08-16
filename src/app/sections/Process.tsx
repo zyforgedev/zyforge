@@ -109,7 +109,7 @@ export default function Process() {
     <section
       id="process"
       ref={sectionRef}
-      className="section-padding px-4 sm:px-6 lg:px-8"
+      className="section-padding"
       style={{ backgroundColor: "#1E1E1E" }}
     >
       <div className="container mx-auto max-w-7xl">

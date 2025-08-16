@@ -13,7 +13,7 @@ const AnimatedSection = forwardRef<HTMLElement, AnimatedSectionProps>(
       <section
         id={id}
         ref={ref}
-        className={`section-padding px-4 sm:px-6 lg:px-8 ${className}`}
+        className={`section-padding ${className}`}
         style={{ backgroundColor }}
       >
         <div className="container mx-auto max-w-7xl">{children}</div>
