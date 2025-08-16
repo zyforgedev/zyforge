@@ -53,10 +53,10 @@ export default function FloatingNav({ activeSection }: FloatingNavProps) {
       {/* Responsive Navigation */}
       <nav
         id="floating-nav"
-        className="fixed z-50 md:left-4 md:top-1/2 md:-translate-y-1/2 top-4 left-1/2 transform -translate-x-1/2 md:translate-x-0"
+        className="fixed z-50 lg:left-4 lg:top-1/2 lg:-translate-y-1/2 top-4 left-1/2 transform -translate-x-1/2 lg:translate-x-0"
       >
         <div
-          className="glass-effect rounded-full shadow-2xl p-2 flex md:flex-col md:space-y-2 space-x-2 md:space-x-0"
+          className="glass-effect rounded-full shadow-2xl p-2 flex lg:flex-col lg:space-y-2 space-x-2 lg:space-x-0"
           style={{
             backgroundColor: "rgba(30, 30, 30, 0.5)",
             backdropFilter: "blur(5px)",
