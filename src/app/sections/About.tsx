@@ -65,9 +65,8 @@ export default function About() {
               Ready to Launch?
             </h3>
             <p className="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">
-              As a freelance developer, I am dedicated to helping startups and
-              small businesses succeed online. Let's work together to bring your
-              vision to life.
+              As a small, dedicated team, we help startups and small businesses
+              succeed online. Let's work together to bring your vision to life.
             </p>
             <div className="relative z-10">
               <CTAButton

@@ -14,7 +14,7 @@ export default function Services() {
     {
       title: "Custom Website Development",
       description:
-        "From simple landing pages to full-featured websites, I build sites that are fast, responsive, and tailored to your needs.",
+        "From simple landing pages to full-featured websites, we build sites that are fast, responsive, and tailored to your needs.",
       icon: "🎨",
       features: [
         "Responsive Design",
