@@ -11,9 +11,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "ZyForge - Web Development for Startups and Small Businesses",
   description:
-    "Affordable and professional web development services for startups, small businesses, and individuals. Get a modern, responsive, and high-performance website without breaking the bank.",
+    "Affordable and professional web development services in the Philippines for startups, small businesses, and individuals. Get a modern, responsive, and high-performance website without breaking the bank.",
   keywords:
-    "web development, freelance, responsive design, web applications, small business websites, startup websites, affordable web design",
+    "web development philippines, freelance, responsive design, web applications, small business websites, startup websites, affordable web design",
   authors: [{ name: "ZyForge" }],
   creator: "ZyForge",
   publisher: "ZyForge",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "en_PH",
     url: "https://zyforge.com",
     siteName: "ZyForge",
     title: "ZyForge - Web Development for Startups and Small Businesses",
@@ -81,7 +81,7 @@ export default function RootLayout({
               logo: "https://zyforge.com/og-image.png",
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+1-555-555-5555",
+                telephone: "+63-917-555-1234",
                 contactType: "customer service",
               },
             }),
