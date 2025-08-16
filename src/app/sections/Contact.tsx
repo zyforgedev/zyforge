@@ -46,7 +46,7 @@ export default function Contact() {
     {
       icon: <EnvelopeIcon className="w-8 h-8 text-primary-cyan" />,
       text: "Email",
-      subtitle: "zyforge@gmail.com\nSend us your project details",
+      subtitle: "zyforge.dev@gmail.com\nSend us your project details",
     },
     {
       icon: <ClockIcon className="w-8 h-8 text-primary-cyan" />,
