@@ -1,11 +1,14 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import AnimatedSection from "../components/AnimatedSection";
 import SectionHeader from "../components/SectionHeader";
 import Card from "../components/Card";
 import FeatureList from "../components/FeatureList";
 import CTAButton from "../components/CTAButton";
+
+const MotionCard = motion(Card);
 
 export default function Services() {
   const { isVisible, sectionRef } = useIntersectionObserver();
@@ -63,11 +66,13 @@ export default function Services() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
         {services.map((service, index) => (
-          <Card
+          <MotionCard
             key={index}
             className="service-card flex flex-col h-full"
-            isVisible={isVisible}
-            animationDelay={`${index * 0.15}s`}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
           >
             <div className="flex-grow">
               <div className="flex items-start mb-6">
@@ -96,7 +101,7 @@ export default function Services() {
 
             {/* Hover effect overlay */}
             <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
-          </Card>
+          </MotionCard>
         ))}
       </div>
 

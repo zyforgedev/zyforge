@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
 import CTAButton from "../components/CTAButton";
 
 export default function Process() {
@@ -99,12 +100,13 @@ export default function Process() {
 
           <div className="space-y-8 lg:space-y-4">
             {steps.map((step, index) => (
-              <div
+              <motion.div
                 key={index}
-                className={`relative ${
-                  isVisible ? "animate-fadeInUp" : "loading"
-                }`}
-                style={{ animationDelay: `${index * 0.2}s` }}
+                className="relative"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <div
                   className={`flex flex-col lg:flex-row items-center ${
@@ -155,7 +157,7 @@ export default function Process() {
                   {/* Spacer */}
                   <div className="w-full lg:w-5/12"></div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

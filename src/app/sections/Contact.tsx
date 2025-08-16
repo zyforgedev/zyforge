@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import AnimatedSection from "../components/AnimatedSection";
 import SectionHeader from "../components/SectionHeader";
@@ -131,7 +132,12 @@ export default function Contact() {
         </div>
 
         {/* Contact Form */}
-        <div className={`${isVisible ? "animate-fadeInRight" : "loading"}`}>
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}
+        >
           <Card backgroundColor="#3A3A3A" hoverEffect={false}>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -185,15 +191,17 @@ export default function Contact() {
                 required
               />
 
-              <button
+              <motion.button
                 type="submit"
                 className="btn-primary w-full text-base py-4 font-semibold"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 Send Project Details
-              </button>
+              </motion.button>
             </form>
           </Card>
-        </div>
+        </motion.div>
       </div>
 
       {/* Footer */}

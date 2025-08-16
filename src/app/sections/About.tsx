@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import AnimatedSection from "../components/AnimatedSection";
 import SectionHeader from "../components/SectionHeader";
@@ -39,10 +40,12 @@ export default function About() {
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-        <div
-          className={`space-y-6 ${
-            isVisible ? "animate-fadeInLeft" : "loading"
-          }`}
+        <motion.div
+          className="space-y-6"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}
         >
           {benefits.map((item, index) => (
             <IconWithText
@@ -52,12 +55,14 @@ export default function About() {
               animationDelay={`${index * 0.1}s`}
             />
           ))}
-        </div>
+        </motion.div>
 
-        <div
-          className={`relative ${
-            isVisible ? "animate-fadeInRight" : "loading"
-          }`}
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}
         >
           <div className="gradient-border p-6 sm:p-8 text-center">
             <div className="text-4xl sm:text-6xl mb-4">🚀</div>
@@ -77,7 +82,7 @@ export default function About() {
               </CTAButton>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </AnimatedSection>
   );
