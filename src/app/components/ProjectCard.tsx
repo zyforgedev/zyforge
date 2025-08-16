@@ -1,9 +1,11 @@
+import { ReactNode } from "react";
+
 interface ProjectCardProps {
   title: string;
   description: string;
   tech: string[];
   category: string;
-  image: string;
+  image: ReactNode;
   index: number;
   isVisible: boolean;
 }

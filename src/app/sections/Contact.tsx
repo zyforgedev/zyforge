@@ -8,6 +8,12 @@ import SectionHeader from "../components/SectionHeader";
 import IconWithText from "../components/IconWithText";
 import Card from "../components/Card";
 import FormInput from "../components/FormInput";
+import {
+  EnvelopeIcon,
+  ClockIcon,
+  GlobeAltIcon,
+  BanknotesIcon,
+} from "@heroicons/react/24/outline";
 
 export default function Contact() {
   const { isVisible, sectionRef } = useIntersectionObserver();
@@ -38,22 +44,22 @@ export default function Contact() {
 
   const contactInfo = [
     {
-      icon: "📧",
+      icon: <EnvelopeIcon className="w-8 h-8 text-primary-cyan" />,
       text: "Email",
       subtitle: "zyforge@gmail.com\nSend us your project details",
     },
     {
-      icon: "⚡",
+      icon: <ClockIcon className="w-8 h-8 text-primary-cyan" />,
       text: "Response Time",
       subtitle: "Within 24 hours\nQuick turnaround guaranteed",
     },
     {
-      icon: "🌍",
+      icon: <GlobeAltIcon className="w-8 h-8 text-primary-cyan" />,
       text: "Location",
       subtitle: "Remote Worldwide\nServing clients globally",
     },
     {
-      icon: "💰",
+      icon: <BanknotesIcon className="w-8 h-8 text-primary-cyan" />,
       text: "Payment",
       subtitle: "No upfront costs\nPay only when satisfied",
     },

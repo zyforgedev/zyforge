@@ -5,6 +5,12 @@ import AnimatedSection from "../components/AnimatedSection";
 import SectionHeader from "../components/SectionHeader";
 import ProjectCard from "../components/ProjectCard";
 import CTAButton from "../components/CTAButton";
+import {
+  ShoppingCartIcon,
+  BuildingOfficeIcon,
+  ChartBarIcon,
+  PaintBrushIcon,
+} from "@heroicons/react/24/outline";
 
 export default function Portfolio() {
   const { isVisible, sectionRef } = useIntersectionObserver();
@@ -16,7 +22,7 @@ export default function Portfolio() {
         "Modern online store with payment integration and inventory management",
       tech: ["React", "Node.js", "PostgreSQL", "Stripe"],
       category: "Web App",
-      image: "🛍️",
+      image: <ShoppingCartIcon className="w-16 h-16 text-primary-cyan" />,
     },
     {
       title: "Corporate Website",
@@ -24,21 +30,21 @@ export default function Portfolio() {
         "Professional business website with CMS and SEO optimization",
       tech: ["WordPress", "PHP", "MySQL", "SEO"],
       category: "Website",
-      image: "🏢",
+      image: <BuildingOfficeIcon className="w-16 h-16 text-primary-cyan" />,
     },
     {
       title: "SaaS Dashboard",
       description: "Analytics dashboard with real-time data visualization",
       tech: ["Next.js", "TypeScript", "D3.js", "API"],
       category: "Web App",
-      image: "📊",
+      image: <ChartBarIcon className="w-16 h-16 text-primary-cyan" />,
     },
     {
       title: "Portfolio Website",
       description: "Creative portfolio showcase for digital artist",
       tech: ["React", "Framer Motion", "Tailwind", "CMS"],
       category: "Portfolio",
-      image: "🎨",
+      image: <PaintBrushIcon className="w-16 h-16 text-primary-cyan" />,
     },
   ];
 

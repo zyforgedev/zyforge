@@ -1,6 +1,13 @@
 "use client";
 
 import { scrollToSection } from "../utils/scrollToSection";
+import {
+  HomeIcon,
+  BoltIcon,
+  UserIcon,
+  ArrowPathIcon,
+  EnvelopeIcon,
+} from "@heroicons/react/24/outline";
 
 interface FloatingNavProps {
   activeSection: string;
@@ -9,15 +16,35 @@ interface FloatingNavProps {
 interface NavItem {
   id: string;
   label: string;
-  icon: string;
+  icon: React.ReactNode;
 }
 
 const navItems: NavItem[] = [
-  { id: "hero", label: "Home", icon: "🏠" },
-  { id: "services", label: "Services", icon: "⚡" },
-  { id: "about", label: "About", icon: "👨‍💻" },
-  { id: "process", label: "Process", icon: "🔄" },
-  { id: "contact", label: "Contact", icon: "📧" },
+  {
+    id: "hero",
+    label: "Home",
+    icon: <HomeIcon className="w-6 h-6 text-white" />,
+  },
+  {
+    id: "services",
+    label: "Services",
+    icon: <BoltIcon className="w-6 h-6 text-white" />,
+  },
+  {
+    id: "about",
+    label: "About",
+    icon: <UserIcon className="w-6 h-6 text-white" />,
+  },
+  {
+    id: "process",
+    label: "Process",
+    icon: <ArrowPathIcon className="w-6 h-6 text-white" />,
+  },
+  {
+    id: "contact",
+    label: "Contact",
+    icon: <EnvelopeIcon className="w-6 h-6 text-white" />,
+  },
 ];
 
 export default function FloatingNav({ activeSection }: FloatingNavProps) {

@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 interface IconWithTextProps {
-  icon: string;
+  icon: ReactNode;
   text: string;
   subtitle?: string;
   animationDelay?: string;
@@ -16,10 +18,10 @@ export default function IconWithText({
   iconSize = "md",
 }: IconWithTextProps) {
   const iconSizeClass = {
-    sm: "text-xl",
-    md: "text-2xl sm:text-3xl",
-    lg: "text-3xl sm:text-4xl",
-    xl: "text-4xl sm:text-6xl",
+    sm: "h-5 w-5",
+    md: "h-8 w-8",
+    lg: "h-10 w-10",
+    xl: "h-16 w-16",
   }[iconSize];
 
   return (
@@ -30,9 +32,7 @@ export default function IconWithText({
       style={{ animationDelay }}
     >
       <div
-        className={`${iconSizeClass} ${
-          hoverEffect ? "group-hover:scale-110" : ""
-        } transition-transform duration-300 flex-shrink-0`}
+        className={`${iconSizeClass} text-primary-cyan group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}
       >
         {icon}
       </div>

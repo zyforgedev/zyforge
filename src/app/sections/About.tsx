@@ -7,6 +7,13 @@ import SectionHeader from "../components/SectionHeader";
 import IconWithText from "../components/IconWithText";
 import Card from "../components/Card";
 import CTAButton from "../components/CTAButton";
+import {
+  UserGroupIcon,
+  CurrencyDollarIcon,
+  SparklesIcon,
+  ChatBubbleLeftRightIcon,
+  RocketLaunchIcon,
+} from "@heroicons/react/24/outline";
 
 export default function About() {
   const { isVisible, sectionRef } = useIntersectionObserver();
@@ -14,19 +21,19 @@ export default function About() {
   const benefits = [
     {
       text: "Direct collaboration with a dedicated developer",
-      icon: "🤝",
+      icon: <UserGroupIcon />,
     },
     {
       text: "Flexible and affordable pricing for any budget",
-      icon: "💰",
+      icon: <CurrencyDollarIcon />,
     },
     {
       text: "Focus on quality, performance, and user experience",
-      icon: "✨",
+      icon: <SparklesIcon />,
     },
     {
       text: "Personalized service and fast communication",
-      icon: "💬",
+      icon: <ChatBubbleLeftRightIcon />,
     },
   ];
 
@@ -65,7 +72,7 @@ export default function About() {
           transition={{ duration: 0.5 }}
         >
           <div className="gradient-border p-6 sm:p-8 text-center">
-            <div className="text-4xl sm:text-6xl mb-4">🚀</div>
+            <RocketLaunchIcon className="w-16 h-16 text-primary-cyan mx-auto mb-4" />
             <h3 className="text-2xl sm:text-3xl font-bold mb-4">
               Ready to Launch?
             </h3>

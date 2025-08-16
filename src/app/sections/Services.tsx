@@ -7,6 +7,11 @@ import SectionHeader from "../components/SectionHeader";
 import Card from "../components/Card";
 import FeatureList from "../components/FeatureList";
 import CTAButton from "../components/CTAButton";
+import {
+  PaintBrushIcon,
+  ShoppingCartIcon,
+  WrenchScrewdriverIcon,
+} from "@heroicons/react/24/outline";
 
 const MotionCard = motion(Card);
 
@@ -18,7 +23,7 @@ export default function Services() {
       title: "Custom Website Development",
       description:
         "From simple landing pages to full-featured websites, we build sites that are fast, responsive, and tailored to your needs.",
-      icon: "🎨",
+      icon: <PaintBrushIcon className="w-8 h-8 text-primary-cyan" />,
       features: [
         "Responsive Design",
         "Custom UI/UX",
@@ -31,7 +36,7 @@ export default function Services() {
       title: "E-commerce Solutions",
       description:
         "Sell your products online with a beautiful and easy-to-use e-commerce website.",
-      icon: "🛒",
+      icon: <ShoppingCartIcon className="w-8 h-8 text-primary-cyan" />,
       features: [
         "Shopify Integration",
         "Payment Gateway Setup",
@@ -44,7 +49,7 @@ export default function Services() {
       title: "Website Maintenance & Support",
       description:
         "Keep your website running smoothly with ongoing maintenance and support.",
-      icon: "🔧",
+      icon: <WrenchScrewdriverIcon className="w-8 h-8 text-primary-cyan" />,
       features: [
         "Regular Backups",
         "Security Updates",

@@ -3,6 +3,13 @@
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import CTAButton from "../components/CTAButton";
+import {
+  MagnifyingGlassIcon,
+  PaintBrushIcon,
+  BoltIcon,
+  WrenchScrewdriverIcon,
+  RocketLaunchIcon,
+} from "@heroicons/react/24/outline";
 
 export default function Process() {
   const [isVisible, setIsVisible] = useState(false);
@@ -61,7 +68,7 @@ export default function Process() {
       title: "Discovery & Planning",
       description:
         "We discuss your goals, requirements, and vision to create a detailed project roadmap",
-      icon: "🎯",
+      icon: <MagnifyingGlassIcon className="w-8 h-8 text-primary-cyan" />,
       duration: "1-2 days",
     },
     {
@@ -69,7 +76,7 @@ export default function Process() {
       title: "Design & Prototyping",
       description:
         "Create wireframes and visual designs that align with your brand and user experience goals",
-      icon: "🎨",
+      icon: <PaintBrushIcon className="w-8 h-8 text-primary-cyan" />,
       duration: "3-5 days",
     },
     {
@@ -77,7 +84,7 @@ export default function Process() {
       title: "Development",
       description:
         "Build your website using modern technologies with regular progress updates",
-      icon: "⚡",
+      icon: <BoltIcon className="w-8 h-8 text-primary-cyan" />,
       duration: "1-3 weeks",
     },
     {
@@ -85,7 +92,7 @@ export default function Process() {
       title: "Testing & Optimization",
       description:
         "Thorough testing across devices and browsers, plus performance optimization",
-      icon: "🔧",
+      icon: <WrenchScrewdriverIcon className="w-8 h-8 text-primary-cyan" />,
       duration: "2-3 days",
     },
     {
@@ -93,7 +100,7 @@ export default function Process() {
       title: "Launch & Support",
       description:
         "Deploy your site and provide training, documentation, and ongoing support",
-      icon: "🚀",
+      icon: <RocketLaunchIcon className="w-8 h-8 text-primary-cyan" />,
       duration: "1 day",
     },
   ];
