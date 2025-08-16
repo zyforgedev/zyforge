@@ -69,14 +69,24 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin=""
-        />
-        <meta name="theme-color" content="#FF6B1A" />
         <meta name="msapplication-TileColor" content="#FF6B1A" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "ZyForge",
+              url: "https://zyforge.com",
+              logo: "https://zyforge.com/og-image.png",
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+1-555-555-5555",
+                contactType: "customer service",
+              },
+            }),
+          }}
+        />
       </head>
       <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
