@@ -57,6 +57,7 @@ export const metadata: Metadata = {
     width: "device-width",
     initialScale: 1,
     maximumScale: 1,
+    userScalable: false, // Prevent user scaling which can reveal overflow
   },
   themeColor: "#FF6B1A",
 };
@@ -70,6 +71,11 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <head>
         <meta name="msapplication-TileColor" content="#FF6B1A" />
+        {/* Additional viewport meta tag for better mobile handling */}
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -88,7 +94,14 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body
+        className={`${inter.className} antialiased`}
+        style={{ overflowX: "hidden" }}
+      >
+        <div style={{ width: "100%", maxWidth: "100vw", overflowX: "hidden" }}>
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

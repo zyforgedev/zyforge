@@ -17,6 +17,16 @@ export default function Process() {
   const [mousePositions, setMousePositions] = useState<{
     [key: number]: { x: number; y: number };
   }>({});
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,7 +50,7 @@ export default function Process() {
     cardRef: React.RefObject<HTMLDivElement | null>,
     index: number
   ) => {
-    if (!cardRef.current) return;
+    if (isMobile || !cardRef.current) return;
 
     const rect = cardRef.current.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
@@ -56,6 +66,7 @@ export default function Process() {
   };
 
   const handleMouseLeave = (index: number) => {
+    if (isMobile) return;
     setMousePositions((prev) => ({
       ...prev,
       [index]: { x: 0, y: 0 },
@@ -131,8 +142,7 @@ export default function Process() {
           </p>
         </div>
 
-        <div className="relative">
-          {/* Timeline line - hidden on mobile */}
+        <div className="relative overflow-hidden">
           <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-orange-500 to-orange-600"></div>
 
           <div className="space-y-8 lg:space-y-4">
