@@ -7,6 +7,9 @@ import CTAButton from "../components/CTAButton";
 export default function Process() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const [mousePositions, setMousePositions] = useState<{
+    [key: number]: { x: number; y: number };
+  }>({});
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,6 +27,33 @@ export default function Process() {
 
     return () => observer.disconnect();
   }, []);
+
+  const handleMouseMove = (
+    e: React.MouseEvent,
+    cardRef: React.RefObject<HTMLDivElement | null>,
+    index: number
+  ) => {
+    if (!cardRef.current) return;
+
+    const rect = cardRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+
+    const deltaX = (e.clientX - centerX) / rect.width;
+    const deltaY = (e.clientY - centerY) / rect.height;
+
+    setMousePositions((prev) => ({
+      ...prev,
+      [index]: { x: deltaX, y: deltaY },
+    }));
+  };
+
+  const handleMouseLeave = (index: number) => {
+    setMousePositions((prev) => ({
+      ...prev,
+      [index]: { x: 0, y: 0 },
+    }));
+  };
 
   const steps = [
     {
@@ -99,66 +129,203 @@ export default function Process() {
           <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-orange-500 to-orange-600"></div>
 
           <div className="space-y-8 lg:space-y-4">
-            {steps.map((step, index) => (
-              <motion.div
-                key={index}
-                className="relative"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <div
-                  className={`flex flex-col lg:flex-row items-center ${
-                    index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
-                  }`}
+            {steps.map((step, index) => {
+              const cardRef = useRef<HTMLDivElement | null>(null);
+              const currentPosition = mousePositions[index] || { x: 0, y: 0 };
+              const isHovering =
+                Math.abs(currentPosition.x) > 0.01 ||
+                Math.abs(currentPosition.y) > 0.01;
+
+              return (
+                <motion.div
+                  key={index}
+                  className="relative"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  {/* Content */}
                   <div
-                    className={`w-full lg:w-5/12 ${
-                      index % 2 === 0 ? "lg:pr-12" : "lg:pl-12"
+                    className={`flex flex-col lg:flex-row items-center ${
+                      index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
                     }`}
                   >
-                    <div className="bg-gray-800/50 p-6 sm:p-8 rounded-xl glass-effect group hover:bg-gray-700/50 transition-all duration-300 relative">
-                      {/* Connecting line */}
-                      <div
-                        className={`hidden lg:block absolute top-1/2 -translate-y-1/2 w-12 h-0.5 bg-orange-500 ${
-                          index % 2 === 0 ? "-right-12" : "-left-12"
-                        }`}
-                      ></div>
-                      <div className="flex items-center mb-4">
-                        <div className="text-2xl sm:text-3xl mr-4 group-hover:scale-110 transition-transform duration-300">
-                          {step.icon}
-                        </div>
-                        <div>
-                          <div className="text-orange-400 font-mono text-sm sm:text-base font-semibold mb-1">
-                            {step.number}
+                    {/* Content */}
+                    <div
+                      className={`w-full lg:w-5/12 ${
+                        index % 2 === 0 ? "lg:pr-12" : "lg:pl-12"
+                      }`}
+                    >
+                      {/* Outer glow container */}
+                      <div className="relative">
+                        {/* Background glow - positioned outside the card */}
+                        <motion.div
+                          className="absolute -inset-8 opacity-0 rounded-2xl pointer-events-none"
+                          style={{
+                            background: `radial-gradient(400px circle at ${
+                              50 + currentPosition.x * 30
+                            }% ${
+                              50 + currentPosition.y * 30
+                            }%, rgba(255, 107, 26, 0.2), rgba(255, 179, 102, 0.15) 40%, transparent 70%)`,
+                            filter: "blur(30px)",
+                          }}
+                          animate={{
+                            opacity: isHovering ? 1 : 0,
+                            scale: isHovering ? 1.05 : 1,
+                          }}
+                          transition={{
+                            duration: 0.3,
+                            ease: "easeOut",
+                          }}
+                        />
+
+                        <motion.div
+                          ref={cardRef}
+                          className="bg-gray-800/50 p-6 sm:p-8 rounded-xl glass-effect relative overflow-hidden"
+                          onMouseMove={(e) =>
+                            handleMouseMove(e, cardRef, index)
+                          }
+                          onMouseLeave={() => handleMouseLeave(index)}
+                          style={{
+                            transformStyle: "preserve-3d",
+                            perspective: "1000px",
+                          }}
+                        >
+                          {/* Localized scaling effect */}
+                          <motion.div
+                            className="absolute inset-0 pointer-events-none"
+                            style={{
+                              background: `radial-gradient(150px circle at ${
+                                50 + currentPosition.x * 50
+                              }% ${
+                                50 + currentPosition.y * 50
+                              }%, rgba(255, 107, 26, 0.1) 0%, transparent 70%)`,
+                              transformOrigin: `${
+                                50 + currentPosition.x * 50
+                              }% ${50 + currentPosition.y * 50}%`,
+                            }}
+                            animate={{
+                              scale: isHovering ? 1.2 : 1,
+                              opacity: isHovering ? 1 : 0,
+                            }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 30,
+                            }}
+                          />
+
+                          {/* Connecting line */}
+                          <div
+                            className={`hidden lg:block absolute top-1/2 -translate-y-1/2 w-12 h-0.5 bg-orange-500 ${
+                              index % 2 === 0 ? "-right-12" : "-left-12"
+                            }`}
+                          ></div>
+
+                          {/* Content container */}
+                          <div className="relative z-10">
+                            <div className="flex items-center mb-4">
+                              <motion.div
+                                className="text-2xl sm:text-3xl mr-4"
+                                animate={{
+                                  scale:
+                                    1 +
+                                    (isHovering
+                                      ? Math.abs(currentPosition.x) * 0.1 +
+                                        Math.abs(currentPosition.y) * 0.1
+                                      : 0),
+                                }}
+                                transition={{
+                                  type: "spring",
+                                  stiffness: 400,
+                                  damping: 30,
+                                }}
+                              >
+                                {step.icon}
+                              </motion.div>
+                              <div>
+                                <div className="text-orange-400 font-mono text-sm sm:text-base font-semibold mb-1">
+                                  {step.number}
+                                </div>
+                                <h3 className="text-xl sm:text-2xl font-bold text-white">
+                                  {step.title}
+                                </h3>
+                              </div>
+                            </div>
+                            <p className="text-sm sm:text-base text-gray-300 mb-4 leading-relaxed">
+                              {step.description}
+                            </p>
+                            <div className="flex items-center text-orange-400 text-sm font-semibold">
+                              <motion.div
+                                className="w-2 h-2 bg-orange-500 rounded-full mr-2"
+                                animate={{
+                                  scale:
+                                    1 +
+                                    (isHovering
+                                      ? (Math.abs(currentPosition.x) +
+                                          Math.abs(currentPosition.y)) *
+                                        0.3
+                                      : 0),
+                                  boxShadow: isHovering
+                                    ? `0 0 ${
+                                        10 +
+                                        (Math.abs(currentPosition.x) +
+                                          Math.abs(currentPosition.y)) *
+                                          15
+                                      }px rgba(255, 107, 26, ${
+                                        0.6 +
+                                        (Math.abs(currentPosition.x) +
+                                          Math.abs(currentPosition.y)) *
+                                          0.3
+                                      })`
+                                    : "0 0 0px rgba(255, 107, 26, 0)",
+                                }}
+                                transition={{
+                                  type: "spring",
+                                  stiffness: 300,
+                                  damping: 30,
+                                }}
+                              />
+                              {step.duration}
+                            </div>
                           </div>
-                          <h3 className="text-xl sm:text-2xl font-bold text-white">
-                            {step.title}
-                          </h3>
-                        </div>
-                      </div>
-                      <p className="text-sm sm:text-base text-gray-300 mb-4 leading-relaxed">
-                        {step.description}
-                      </p>
-                      <div className="flex items-center text-orange-400 text-sm font-semibold">
-                        <div className="w-2 h-2 bg-orange-500 rounded-full mr-2"></div>
-                        {step.duration}
+                        </motion.div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Timeline dot */}
-                  <div className="hidden lg:flex w-2/12 justify-center relative z-10 my-4 lg:my-0">
-                    <div className="w-4 h-4 bg-orange-500 rounded-full border-4 border-gray-900 shadow-lg"></div>
-                  </div>
+                    {/* Timeline dot with enhanced hover effect */}
+                    <div className="hidden lg:flex w-2/12 justify-center relative z-10 my-4 lg:my-0">
+                      <motion.div
+                        className="w-4 h-4 bg-orange-500 rounded-full border-4 border-gray-900 shadow-lg relative"
+                        whileHover={{
+                          scale: 1.5,
+                          boxShadow:
+                            "0 0 20px rgba(255, 107, 26, 0.8), 0 0 40px rgba(255, 107, 26, 0.4)",
+                        }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {/* Pulsing ring effect */}
+                        <motion.div
+                          className="absolute inset-0 bg-orange-500 rounded-full opacity-30"
+                          animate={{
+                            scale: [1, 1.8, 1],
+                            opacity: [0.3, 0, 0.3],
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                      </motion.div>
+                    </div>
 
-                  {/* Spacer */}
-                  <div className="w-full lg:w-5/12"></div>
-                </div>
-              </motion.div>
-            ))}
+                    {/* Spacer */}
+                    <div className="w-full lg:w-5/12"></div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 
@@ -168,23 +335,56 @@ export default function Process() {
           }`}
           style={{ animationDelay: "1.2s" }}
         >
-          <div className="gradient-border p-6 sm:p-8 max-w-2xl mx-auto relative">
-            <h3 className="text-2xl sm:text-3xl font-bold mb-4">
-              Ready to Get Started?
-            </h3>
-            <p className="text-gray-300 mb-6 text-sm sm:text-base">
-              Let's discuss your project and how we can bring your vision to
-              life with our proven process.
-            </p>
+          <motion.div
+            className="gradient-border p-6 sm:p-8 max-w-2xl mx-auto relative overflow-hidden"
+            whileHover={{
+              rotateX: 2,
+              scale: 1.02,
+            }}
+            transition={{
+              duration: 0.3,
+              ease: "easeOut",
+            }}
+            style={{
+              perspective: "1000px",
+              transformStyle: "preserve-3d",
+            }}
+          >
+            {/* Background glow for CTA section */}
+            <motion.div
+              className="absolute inset-0 opacity-0"
+              style={{
+                background: `radial-gradient(circle at center, rgba(255, 107, 26, 0.2) 0%, rgba(255, 179, 102, 0.1) 50%, transparent 80%)`,
+                filter: "blur(30px)",
+              }}
+              whileHover={{
+                opacity: 1,
+                scale: 1.1,
+              }}
+              transition={{
+                duration: 0.4,
+                ease: "easeOut",
+              }}
+            />
+
             <div className="relative z-10">
-              <CTAButton
-                targetSection="contact"
-                className="w-full sm:w-auto text-sm sm:text-base px-8 py-4"
-              >
-                Start Your Project
-              </CTAButton>
+              <h3 className="text-2xl sm:text-3xl font-bold mb-4">
+                Ready to Get Started?
+              </h3>
+              <p className="text-gray-300 mb-6 text-sm sm:text-base">
+                Let's discuss your project and how we can bring your vision to
+                life with our proven process.
+              </p>
+              <div className="relative z-10">
+                <CTAButton
+                  targetSection="contact"
+                  className="w-full sm:w-auto text-sm sm:text-base px-8 py-4"
+                >
+                  Start Your Project
+                </CTAButton>
+              </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
