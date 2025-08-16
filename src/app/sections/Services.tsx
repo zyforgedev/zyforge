@@ -65,28 +65,31 @@ export default function Services() {
         {services.map((service, index) => (
           <Card
             key={index}
-            className="service-card"
+            className="service-card flex flex-col h-full"
             isVisible={isVisible}
             animationDelay={`${index * 0.15}s`}
           >
-            <div className="flex items-start mb-6">
-              <div className="text-3xl sm:text-4xl mr-4 group-hover:scale-110 transition-transform duration-300">
-                {service.icon}
+            <div className="flex-grow">
+              <div className="flex items-start mb-6">
+                <div className="text-3xl sm:text-4xl mr-4 group-hover:scale-110 transition-transform duration-300">
+                  {service.icon}
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl sm:text-2xl font-bold mb-3 text-white group-hover:text-orange-300 transition-colors duration-300">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-gray-300 mb-4 leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="text-xl sm:text-2xl font-bold mb-3 text-white group-hover:text-orange-300 transition-colors duration-300">
-                  {service.title}
-                </h3>
-                <p className="text-sm sm:text-base text-gray-300 mb-4 leading-relaxed">
-                  {service.description}
-                </p>
-              </div>
+
+              <FeatureList features={service.features} />
             </div>
 
-            <FeatureList features={service.features} />
-
-            <div className="mt-6 text-center">
-              <p className="text-lg font-bold text-orange-400">
+            <div className="mt-auto pt-6">
+              <div className="border-t border-gray-600 mb-6"></div>
+              <p className="text-lg font-bold text-orange-400 text-center">
                 {service.price}
               </p>
             </div>

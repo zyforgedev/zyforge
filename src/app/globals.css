@@ -127,20 +127,11 @@ body {
 
 .gradient-border {
   position: relative;
-  background: var(--card-bg);
+  z-index: 0;
   border-radius: 12px;
-}
-
-.gradient-border::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  padding: 2px;
-  background: linear-gradient(135deg, var(--accent-orange), #ffb366);
-  border-radius: inherit;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: xor;
-  -webkit-mask-composite: xor;
+  border: 2px solid transparent;
+  background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+    linear-gradient(135deg, var(--accent-orange), #ffb366) border-box;
 }
 
 .glass-effect {
