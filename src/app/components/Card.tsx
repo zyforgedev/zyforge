@@ -24,7 +24,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
     return (
       <div
         ref={ref}
-        className={`p-6 sm:p-8 rounded-xl glass-effect ${
+        className={`h-full flex flex-col p-6 sm:p-8 rounded-xl glass-effect ${
           hoverEffect
             ? "group hover:bg-gray-700/50 transition-all duration-300"
             : ""
