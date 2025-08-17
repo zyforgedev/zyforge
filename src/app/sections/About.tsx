@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import AnimatedSection from "../components/AnimatedSection";
 import SectionHeader from "../components/SectionHeader";
@@ -15,7 +14,7 @@ import {
   RocketLaunchIcon,
 } from "@heroicons/react/24/outline";
 
-export default function About() {
+export default function About({ motion }: { motion: any }) {
   const { isVisible, sectionRef } = useIntersectionObserver();
 
   const benefits = [

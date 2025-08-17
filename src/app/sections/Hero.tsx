@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, Variants } from "framer-motion";
+import { Variants } from "framer-motion";
 import { scrollToSection } from "../utils/scrollToSection";
 
-export default function Hero() {
+export default function Hero({ motion }: { motion: any }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {

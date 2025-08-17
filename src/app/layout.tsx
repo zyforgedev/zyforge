@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -9,6 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://zyforge.com"),
   title: "ZyForge - Web Development for Startups and Small Businesses",
   description:
     "Affordable and professional web development services in the Philippines for startups, small businesses, and individuals. Get a modern, responsive, and high-performance website without breaking the bank.",
@@ -53,13 +54,14 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
     creator: "@zyforge",
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false, // Prevent user scaling which can reveal overflow
-  },
+};
+
+export const viewport: Viewport = {
   themeColor: "#FF6B1A",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({
@@ -71,11 +73,6 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <head>
         <meta name="msapplication-TileColor" content="#FF6B1A" />
-        {/* Additional viewport meta tag for better mobile handling */}
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import AnimatedSection from "../components/AnimatedSection";
 import SectionHeader from "../components/SectionHeader";
@@ -15,7 +14,7 @@ import {
   BanknotesIcon,
 } from "@heroicons/react/24/outline";
 
-export default function Contact() {
+export default function Contact({ motion }: { motion: any }) {
   const { isVisible, sectionRef } = useIntersectionObserver();
   const [formData, setFormData] = useState({
     name: "",

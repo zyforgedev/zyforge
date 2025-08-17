@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 // Import sections
 import Hero from "../sections/Hero";
@@ -45,12 +46,12 @@ export default function HomePageClient() {
     <>
       <FloatingNav activeSection={activeSection} />
       <main className="relative">
-        <Hero />
-        <Services />
-        <About />
+        <Hero motion={motion} />
+        <Services motion={motion} />
+        <About motion={motion} />
         {/* <Portfolio /> */}
-        <Process />
-        <Contact />
+        <Process motion={motion} />
+        <Contact motion={motion} />
       </main>
     </>
   );

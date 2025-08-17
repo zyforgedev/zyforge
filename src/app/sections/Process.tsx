@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { motion } from "framer-motion";
 import CTAButton from "../components/CTAButton";
 import {
   MagnifyingGlassIcon,
@@ -11,7 +10,7 @@ import {
   RocketLaunchIcon,
 } from "@heroicons/react/24/outline";
 
-export default function Process() {
+export default function Process({ motion }: { motion: any }) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const [mousePositions, setMousePositions] = useState<{
@@ -45,8 +44,9 @@ export default function Process() {
     return () => observer.disconnect();
   }, []);
 
+  // Fixed: Added proper TypeScript typing for the event parameter
   const handleMouseMove = (
-    e: React.MouseEvent,
+    e: React.MouseEvent<HTMLDivElement>,
     cardRef: React.RefObject<HTMLDivElement | null>,
     index: number
   ) => {
@@ -142,7 +142,7 @@ export default function Process() {
           </p>
         </div>
 
-        <div className="relative overflow-hidden">
+        <div className="relative">
           <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-orange-500 to-orange-600"></div>
 
           <div className="space-y-8 lg:space-y-4">
@@ -486,7 +486,7 @@ export default function Process() {
           style={{ animationDelay: "1.2s" }}
         >
           <motion.div
-            className="gradient-border p-6 sm:p-8 max-w-2xl mx-auto relative overflow-hidden"
+            className="gradient-border p-6 sm:p-8 max-w-2xl mx-auto relative"
             whileHover={{
               rotateX: 3,
               rotateY: 2,

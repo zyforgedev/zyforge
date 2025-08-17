@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
 import AnimatedSection from "../components/AnimatedSection";
 import SectionHeader from "../components/SectionHeader";
@@ -13,10 +12,9 @@ import {
   WrenchScrewdriverIcon,
 } from "@heroicons/react/24/outline";
 
-const MotionCard = motion(Card);
-
-export default function Services() {
+export default function Services({ motion }: { motion: any }) {
   const { isVisible, sectionRef } = useIntersectionObserver();
+  const MotionCard = motion.div;
 
   const services = [
     {
@@ -79,33 +77,35 @@ export default function Services() {
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
           >
-            <div className="flex-grow">
-              <div className="flex items-start mb-6">
-                <div className="text-3xl sm:text-4xl mr-4 group-hover:scale-110 transition-transform duration-300">
-                  {service.icon}
+            <Card>
+              <div className="flex-grow">
+                <div className="flex items-start mb-6">
+                  <div className="text-3xl sm:text-4xl mr-4 group-hover:scale-110 transition-transform duration-300">
+                    {service.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl sm:text-2xl font-bold mb-3 text-white group-hover:text-orange-300 transition-colors duration-300">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm sm:text-base text-gray-300 mb-4 leading-relaxed">
+                      {service.description}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="text-xl sm:text-2xl font-bold mb-3 text-white group-hover:text-orange-300 transition-colors duration-300">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-300 mb-4 leading-relaxed">
-                    {service.description}
-                  </p>
-                </div>
+
+                <FeatureList features={service.features} />
               </div>
 
-              <FeatureList features={service.features} />
-            </div>
+              <div className="mt-auto pt-6">
+                <div className="border-t border-gray-600 mb-6"></div>
+                <p className="text-lg font-bold text-orange-400 text-center">
+                  {service.price}
+                </p>
+              </div>
 
-            <div className="mt-auto pt-6">
-              <div className="border-t border-gray-600 mb-6"></div>
-              <p className="text-lg font-bold text-orange-400 text-center">
-                {service.price}
-              </p>
-            </div>
-
-            {/* Hover effect overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+              {/* Hover effect overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+            </Card>
           </MotionCard>
         ))}
       </div>
