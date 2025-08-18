@@ -213,7 +213,7 @@ export default function Process({ motion }: { motion: any }) {
                         <motion.div
                           ref={cardRef}
                           className="bg-gray-800/50 p-6 sm:p-8 rounded-xl glass-effect relative overflow-hidden"
-                          onMouseMove={(e) =>
+                          onMouseMove={(e: React.MouseEvent<HTMLDivElement>) =>
                             handleMouseMove(e, cardRef, index)
                           }
                           onMouseLeave={() => handleMouseLeave(index)}
