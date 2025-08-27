@@ -185,10 +185,10 @@ export default function Contact({ motion }: { motion: any }) {
 
   const projectTypeOptions = [
     { value: "", label: "Select a service" },
-    { value: "website", label: "Custom Website" },
-    { value: "webapp", label: "Web Application" },
-    { value: "wordpress", label: "WordPress/CMS" },
-    { value: "optimization", label: "Optimization" },
+    { value: "Custom Website", label: "Custom Website" },
+    { value: "Web Application", label: "Web Application" },
+    { value: "WordPress/CMS", label: "WordPress/CMS" },
+    { value: "Optimization", label: "Optimization" },
     { value: "other", label: "Other" },
   ];
 
