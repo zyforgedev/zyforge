@@ -13,6 +13,7 @@ import {
   GlobeAltIcon,
   BanknotesIcon,
 } from "@heroicons/react/24/outline";
+import emailjs from "@emailjs/browser";
 
 export default function Contact({ motion }: { motion: any }) {
   const { isVisible, sectionRef } = useIntersectionObserver();
@@ -23,6 +24,15 @@ export default function Contact({ motion }: { motion: any }) {
     budget: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: "success" | "error" | null;
+    message: string;
+  }>({ type: null, message: "" });
+
+  const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
+  const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
+  const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -35,10 +45,119 @@ export default function Contact({ motion }: { motion: any }) {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! We'll get back to you soon.");
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    try {
+      // Method 1: Using EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        project_type: formData.projectType,
+        budget: formData.budget,
+        message: formData.message,
+        to_email: "zyforge.dev@gmail.com", // Your receiving email
+      };
+
+      await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY);
+
+      setSubmitStatus({
+        type: "success",
+        message:
+          "Thank you for your message! We'll get back to you within 24 hours.",
+      });
+
+      // Clear form after successful submission
+      setFormData({
+        name: "",
+        email: "",
+        projectType: "",
+        budget: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Failed to send email:", error);
+      setSubmitStatus({
+        type: "error",
+        message:
+          "Failed to send message. Please try again or email us directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Alternative Method 2: Mailto fallback (opens user's email client)
+  const handleMailtoFallback = () => {
+    const subject = encodeURIComponent(
+      `New Project Inquiry from ${formData.name}`
+    );
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\n` +
+        `Email: ${formData.email}\n` +
+        `Project Type: ${formData.projectType}\n` +
+        `Budget: ₱${formData.budget}\n\n` +
+        `Message:\n${formData.message}`
+    );
+    window.location.href = `mailto:zyforge.dev@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  // Alternative Method 3: Using Web3Forms (another free service)
+  const handleWeb3FormsSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus({ type: null, message: "" });
+
+    // Get your access key from https://web3forms.com/ (free)
+    const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          name: formData.name,
+          email: formData.email,
+          project_type: formData.projectType,
+          budget: `₱${formData.budget}`,
+          message: formData.message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setSubmitStatus({
+          type: "success",
+          message:
+            "Thank you for your message! We'll get back to you within 24 hours.",
+        });
+        setFormData({
+          name: "",
+          email: "",
+          projectType: "",
+          budget: "",
+          message: "",
+        });
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Failed to send email:", error);
+      setSubmitStatus({
+        type: "error",
+        message:
+          "Failed to send message. Please try again or email us directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -196,14 +315,43 @@ export default function Contact({ motion }: { motion: any }) {
                 required
               />
 
-              <motion.button
-                type="submit"
-                className="btn-primary w-full text-base py-4 font-semibold"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Send Project Details
-              </motion.button>
+              {/* Status Messages */}
+              {submitStatus.type && (
+                <div
+                  className={`p-4 rounded-lg text-sm ${
+                    submitStatus.type === "success"
+                      ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                      : "bg-red-500/20 text-red-400 border border-red-500/30"
+                  }`}
+                >
+                  {submitStatus.message}
+                </div>
+              )}
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`btn-primary flex-1 text-base py-4 font-semibold ${
+                    isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  whileHover={!isSubmitting ? { scale: 1.05 } : {}}
+                  whileTap={!isSubmitting ? { scale: 0.95 } : {}}
+                >
+                  {isSubmitting ? "Sending..." : "Send Project Details"}
+                </motion.button>
+
+                {/* Fallback option */}
+                <motion.button
+                  type="button"
+                  onClick={handleMailtoFallback}
+                  className="btn-secondary flex-1 text-base py-4 font-semibold border border-primary-cyan text-primary-cyan hover:bg-primary-cyan hover:text-black transition-colors"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Open Email Client
+                </motion.button>
+              </div>
             </form>
           </Card>
         </motion.div>
