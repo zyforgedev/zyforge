@@ -52,20 +52,19 @@ export default function Services({ motion }: { motion: any }) {
         "No Hidden Fees",
       ],
       price: {
-        summary: "Starts at ₱1,000+",
+        summary: "Fixed Prices",
         details: [
-          "₱1,000 – Basic Landing Page (static, single scroll, up to 3 sections)",
-          "₱2,500 – Multi-section Landing Page (up to 5 sections, responsive)",
-          "₱5,000 – E-commerce Starter (products, cart, checkout, notifications)",
-          "₱10,000+ – Custom Web App / Large E-commerce Solutions",
+          "₱1,500 – Basic Landing Page",
+          "₱5,000 – Multi-page Business Site",
+          "₱8,000–₱12,000 – Small E-commerce (no login)",
         ],
       },
     },
     {
       title: "Hosted & Maintained",
       description:
-        "We host and maintain your website so you can focus on your business.",
-      icon: <WrenchScrewdriverIcon className="w-8 h-8 text-primary-cyan" />,
+        "Coming Soon! We'll soon offer hosting and maintenance so you can focus on your business.",
+      icon: <WrenchScrewdriverIcon className="w-8 h-8 text-gray-500" />,
       features: [
         "Hosting Included",
         "Regular Backups",
@@ -73,13 +72,8 @@ export default function Services({ motion }: { motion: any }) {
         "Ongoing Support",
       ],
       price: {
-        summary: "₱249 – ₱499 / month",
-        details: [
-          "₱249/month – Personal / Portfolio (5GB storage, 1 domain, SSL, backups)",
-          "₱349/month – Business (10GB storage, priority support, SEO tools)",
-          "₱499/month – E-commerce (20GB storage, faster servers, priority support)",
-          "Custom Pricing – For larger businesses or special requirements",
-        ],
+        summary: "Coming Soon",
+        details: [],
       },
     },
   ];
@@ -97,10 +91,14 @@ export default function Services({ motion }: { motion: any }) {
         {services.map((service, index) => {
           const isExpanded = expandedServices.includes(index);
 
+          const isHostedComingSoon = service.title === "Hosted & Maintained";
+
           return (
             <MotionCard
               key={index}
-              className="service-card flex flex-col h-full"
+              className={`service-card flex flex-col h-full ${
+                isHostedComingSoon ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -130,22 +128,38 @@ export default function Services({ motion }: { motion: any }) {
 
                   {/* Clickable Price Summary */}
                   <button
-                    onClick={() => togglePriceExpansion(index)}
-                    className="w-full group/price hover:bg-gray-800/50 rounded-lg p-3 transition-all duration-300"
+                    onClick={() =>
+                      !isHostedComingSoon && togglePriceExpansion(index)
+                    }
+                    disabled={isHostedComingSoon}
+                    className={`w-full group/price rounded-lg p-3 transition-all duration-300 ${
+                      isHostedComingSoon
+                        ? "cursor-not-allowed"
+                        : "hover:bg-gray-800/50"
+                    }`}
                   >
                     <div className="flex items-center justify-center">
-                      <p className="text-lg font-bold text-orange-400 mr-2">
+                      <p
+                        className={`text-lg font-bold mr-2 ${
+                          isHostedComingSoon
+                            ? "text-gray-500"
+                            : "text-orange-400"
+                        }`}
+                      >
                         {service.price.summary}
                       </p>
-                      {isExpanded ? (
-                        <ChevronUpIcon className="w-5 h-5 text-orange-400 group-hover/price:text-orange-300 transition-colors" />
-                      ) : (
-                        <ChevronDownIcon className="w-5 h-5 text-orange-400 group-hover/price:text-orange-300 transition-colors" />
-                      )}
+                      {!isHostedComingSoon &&
+                        (isExpanded ? (
+                          <ChevronUpIcon className="w-5 h-5 text-orange-400 group-hover/price:text-orange-300 transition-colors" />
+                        ) : (
+                          <ChevronDownIcon className="w-5 h-5 text-orange-400 group-hover/price:text-orange-300 transition-colors" />
+                        ))}
                     </div>
-                    <p className="text-xs text-gray-400 mt-1 group-hover/price:text-gray-300 transition-colors">
-                      Click for detailed pricing
-                    </p>
+                    {!isHostedComingSoon && (
+                      <p className="text-xs text-gray-400 mt-1 group-hover/price:text-gray-300 transition-colors">
+                        Click for detailed pricing
+                      </p>
+                    )}
                   </button>
 
                   {/* Expandable Price Details */}

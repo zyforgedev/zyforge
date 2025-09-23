@@ -175,7 +175,7 @@ export default function Contact({ motion }: { motion: any }) {
     {
       icon: <ClockIcon className="w-8 h-8 text-primary-cyan" />,
       text: "Response Time",
-      subtitle: "Within 24 hours\nQuick turnaround guaranteed",
+      subtitle: "Within 1-2 Business days\nQuick turnaround guaranteed",
     },
     {
       icon: <GlobeAltIcon className="w-8 h-8 text-primary-cyan" />,
@@ -190,20 +190,18 @@ export default function Contact({ motion }: { motion: any }) {
   ];
 
   const projectTypeOptions = [
-    { value: "", label: "Select a service" },
-    { value: "Custom Website", label: "Custom Website" },
-    { value: "Web Application", label: "Web Application" },
-    { value: "WordPress/CMS", label: "WordPress/CMS" },
-    { value: "Optimization", label: "Optimization" },
-    { value: "other", label: "Other" },
+    { value: "", label: "Select project type" },
+    { value: "Basic Landing Page", label: "Basic Landing Page" },
+    { value: "Multi-page Business Site", label: "Multi-page Business Site" },
+    { value: "Small E-commerce", label: "Small E-commerce" },
+    { value: "Other", label: "Other" },
   ];
 
   const budgetOptions = [
     { value: "", label: "Select budget" },
-    { value: "1k-5k", label: "₱1,000 - ₱5,000" },
-    { value: "5k-10k", label: "₱5,000 - ₱10,000" },
-    { value: "10k-20k", label: "₱10,000 - ₱20,000" },
-    { value: "20k+", label: "₱20,000+" },
+    { value: "1.5k-5k", label: "₱1,500 - ₱5,000" },
+    { value: "5k-12k", label: "₱5,000 - ₱12,000" },
+    { value: "12k+", label: "₱12,000+" },
   ];
 
   return (
@@ -301,18 +299,24 @@ export default function Contact({ motion }: { motion: any }) {
                     const id = `service-${opt
                       .replace(/\s+/g, "-")
                       .toLowerCase()}`;
+                    const isHosted = opt === "Hosted & Maintained";
                     return (
                       <label
                         key={opt}
                         htmlFor={id}
                         className={`
             relative flex items-center justify-center
-            h-[52px] px-4 rounded-lg border-2 cursor-pointer
+            h-[52px] px-4 rounded-lg border-2
             transition-all duration-200
             ${
-              formData.serviceOption === opt
+              formData.serviceOption === opt && !isHosted
                 ? "border-primary-cyan bg-primary-cyan/10"
-                : "border-gray-600 bg-gray-700 hover:border-gray-500"
+                : "border-gray-600 bg-gray-700"
+            }
+            ${
+              isHosted
+                ? "cursor-not-allowed opacity-50"
+                : "cursor-pointer hover:border-gray-500"
             }
           `}
                       >
@@ -323,10 +327,16 @@ export default function Contact({ motion }: { motion: any }) {
                           value={opt}
                           checked={formData.serviceOption === opt}
                           onChange={handleInputChange}
+                          disabled={isHosted}
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                         />
-                        <span className="text-gray-200 font-medium select-none">
+                        <span className="text-gray-200 font-medium select-none text-center">
                           {opt}
+                          {isHosted && (
+                            <span className="block text-xs text-gray-400">
+                              (Coming Soon)
+                            </span>
+                          )}
                         </span>
                       </label>
                     );
