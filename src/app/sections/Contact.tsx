@@ -175,7 +175,7 @@ export default function Contact({ motion }: { motion: any }) {
     {
       icon: <ClockIcon className="w-8 h-8 text-primary-cyan" />,
       text: "Response Time",
-      subtitle: "Within 1-2 Business days\nQuick turnaround guaranteed",
+      subtitle: "Within 1-2 business days\nQuick turnaround guaranteed",
     },
     {
       icon: <GlobeAltIcon className="w-8 h-8 text-primary-cyan" />,
@@ -185,7 +185,8 @@ export default function Contact({ motion }: { motion: any }) {
     {
       icon: <BanknotesIcon className="w-8 h-8 text-primary-cyan" />,
       text: "Payment",
-      subtitle: "No upfront costs\nPay only when satisfied",
+      subtitle:
+        "Full payment upfront secures your project\nProfessional delivery guaranteed",
     },
   ];
 

@@ -123,22 +123,13 @@ export default function Hero({ motion }: { motion: any }) {
             style={{ width: "100%" }}
           >
             <motion.button
-              onClick={() => scrollToSection("contact")}
+              onClick={() => scrollToSection("services")}
               className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               style={{ maxWidth: "100%" }}
             >
-              Get Full Handoff
-            </motion.button>
-            <motion.button
-              onClick={() => scrollToSection("contact")}
-              className="btn-secondary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              style={{ maxWidth: "100%" }}
-            >
-              Get Hosted & Maintained Plan
+              Explore Services
             </motion.button>
           </motion.div>
         </motion.div>
