@@ -62,8 +62,8 @@ export default function About({ motion }: { motion: any }) {
             />
           ))}
           <p className="text-gray-400 text-sm sm:text-base italic mt-6">
-            Whether you want full ownership or hassle-free hosting, we have a
-            plan that fits your needs.
+            We offer complete website ownership with our Full Handoff service,
+            and will soon offer hassle-free hosting and maintenance.
           </p>
         </motion.div>
 
