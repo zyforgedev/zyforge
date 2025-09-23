@@ -68,7 +68,7 @@ export default function FloatingNav({ activeSection }: FloatingNavProps) {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`relative flex items-center justify-center w-10 h-10 rounded-full hover:scale-110 transition-all ${
+              className={`relative flex items-center justify-center w-10 h-10 rounded-full hover:scale-110 transition-all hover:bg-orange-500/50 ${
                 activeSection === item.id ? "bg-orange-500" : ""
               }`}
               title={item.label}

@@ -18,43 +18,30 @@ export default function Services({ motion }: { motion: any }) {
 
   const services = [
     {
-      title: "Custom Website Development",
+      title: "Full Handoff",
       description:
-        "From simple landing pages to full-featured websites, we build sites that are fast, responsive, and tailored to your needs.",
+        "Get your complete website and code. Pay once, full ownership guaranteed.",
       icon: <PaintBrushIcon className="w-8 h-8 text-primary-cyan" />,
       features: [
-        "Responsive Design",
-        "Custom UI/UX",
-        "Content Management",
-        "Performance Optimized",
+        "Complete Source Code",
+        "Full Ownership",
+        "One-time Payment",
+        "No Hidden Fees",
       ],
-      price: "Starts at ₱1,000",
+      price: "Starts at ₱1,000 (Landing Page) / ₱5,000 (E-commerce)",
     },
     {
-      title: "E-commerce Solutions",
+      title: "Hosted & Maintained",
       description:
-        "Sell your products online with a beautiful and easy-to-use e-commerce website.",
-      icon: <ShoppingCartIcon className="w-8 h-8 text-primary-cyan" />,
-      features: [
-        "Shopify Integration",
-        "Payment Gateway Setup",
-        "Product Management",
-        "Secure Checkout",
-      ],
-      price: "Starts at ₱5,000",
-    },
-    {
-      title: "Website Maintenance & Support",
-      description:
-        "Keep your website running smoothly with ongoing maintenance and support.",
+        "We host and maintain your website so you can focus on your business.",
       icon: <WrenchScrewdriverIcon className="w-8 h-8 text-primary-cyan" />,
       features: [
+        "Hosting Included",
         "Regular Backups",
         "Security Updates",
-        "Content Updates",
-        "Performance Monitoring",
+        "Ongoing Support",
       ],
-      price: "Starts at ₱500 / month",
+      price: "₱249 - ₱499 / month",
     },
   ];
 
@@ -67,7 +54,7 @@ export default function Services({ motion }: { motion: any }) {
         isVisible={isVisible}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         {services.map((service, index) => (
           <MotionCard
             key={index}
@@ -123,7 +110,7 @@ export default function Services({ motion }: { motion: any }) {
           targetSection="contact"
           className="text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4"
         >
-          Get Custom Quote
+          Get a Quote
         </CTAButton>
       </div>
     </AnimatedSection>

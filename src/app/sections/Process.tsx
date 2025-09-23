@@ -110,7 +110,7 @@ export default function Process({ motion }: { motion: any }) {
       number: "05",
       title: "Launch & Support",
       description:
-        "Deploy your site and provide training, documentation, and ongoing support",
+        "Deploy your site and provide training, documentation, and ongoing support (optional monthly hosting & maintenance available)",
       icon: <RocketLaunchIcon className="w-8 h-8 text-primary-cyan" />,
       duration: "1 day",
     },
@@ -539,7 +539,7 @@ export default function Process({ motion }: { motion: any }) {
                   targetSection="contact"
                   className="w-full sm:w-auto text-sm sm:text-base px-8 py-4"
                 >
-                  Start Your Project
+                  Get a Quote
                 </CTAButton>
               </div>
             </div>

@@ -20,6 +20,7 @@ export default function Contact({ motion }: { motion: any }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    serviceOption: "Full Handoff",
     projectType: "",
     budget: "",
     message: "",
@@ -55,6 +56,7 @@ export default function Contact({ motion }: { motion: any }) {
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
+        service_option: formData.serviceOption,
         project_type: formData.projectType,
         budget: formData.budget,
         message: formData.message,
@@ -73,6 +75,7 @@ export default function Contact({ motion }: { motion: any }) {
       setFormData({
         name: "",
         email: "",
+        serviceOption: "Full Handoff",
         projectType: "",
         budget: "",
         message: "",
@@ -97,6 +100,7 @@ export default function Contact({ motion }: { motion: any }) {
     const body = encodeURIComponent(
       `Name: ${formData.name}\n` +
         `Email: ${formData.email}\n` +
+        `Service Option: ${formData.serviceOption}\n` +
         `Project Type: ${formData.projectType}\n` +
         `Budget: ₱${formData.budget}\n\n` +
         `Message:\n${formData.message}`
@@ -124,6 +128,7 @@ export default function Contact({ motion }: { motion: any }) {
           access_key: WEB3FORMS_ACCESS_KEY,
           name: formData.name,
           email: formData.email,
+          service_option: formData.serviceOption,
           project_type: formData.projectType,
           budget: `₱${formData.budget}`,
           message: formData.message,
@@ -141,6 +146,7 @@ export default function Contact({ motion }: { motion: any }) {
         setFormData({
           name: "",
           email: "",
+          serviceOption: "Full Handoff",
           projectType: "",
           budget: "",
           message: "",
@@ -283,6 +289,36 @@ export default function Contact({ motion }: { motion: any }) {
                   placeholder="your@email.com"
                   required
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Service Option
+                </label>
+                <div className="flex items-center space-x-4">
+                  <label className="flex items-center text-gray-300 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="serviceOption"
+                      value="Full Handoff"
+                      checked={formData.serviceOption === "Full Handoff"}
+                      onChange={handleInputChange}
+                      className="form-radio h-4 w-4 text-primary-cyan bg-gray-700 border-gray-600 focus:ring-primary-cyan"
+                    />
+                    <span className="ml-2">Full Handoff</span>
+                  </label>
+                  <label className="flex items-center text-gray-300 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="serviceOption"
+                      value="Hosted & Maintained"
+                      checked={formData.serviceOption === "Hosted & Maintained"}
+                      onChange={handleInputChange}
+                      className="form-radio h-4 w-4 text-primary-cyan bg-gray-700 border-gray-600 focus:ring-primary-cyan"
+                    />
+                    <span className="ml-2">Hosted & Maintained</span>
+                  </label>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

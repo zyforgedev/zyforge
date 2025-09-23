@@ -61,6 +61,10 @@ export default function About({ motion }: { motion: any }) {
               animationDelay={`${index * 0.1}s`}
             />
           ))}
+          <p className="text-gray-400 text-sm sm:text-base italic mt-6">
+            Whether you want full ownership or hassle-free hosting, we have a
+            plan that fits your needs.
+          </p>
         </motion.div>
 
         <motion.div
@@ -84,7 +88,7 @@ export default function About({ motion }: { motion: any }) {
                 targetSection="contact"
                 className="w-full sm:w-auto text-sm sm:text-base px-6 py-3"
               >
-                Get Started Today
+                Get a Quote
               </CTAButton>
             </div>
           </div>
