@@ -295,29 +295,42 @@ export default function Contact({ motion }: { motion: any }) {
                 <label className="block text-sm font-medium text-gray-300 mb-2">
                   Service Option
                 </label>
-                <div className="flex items-center space-x-4">
-                  <label className="flex items-center text-gray-300 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="serviceOption"
-                      value="Full Handoff"
-                      checked={formData.serviceOption === "Full Handoff"}
-                      onChange={handleInputChange}
-                      className="form-radio h-4 w-4 text-primary-cyan bg-gray-700 border-gray-600 focus:ring-primary-cyan"
-                    />
-                    <span className="ml-2">Full Handoff</span>
-                  </label>
-                  <label className="flex items-center text-gray-300 cursor-pointer">
-                    <input
-                      type="radio"
-                      name="serviceOption"
-                      value="Hosted & Maintained"
-                      checked={formData.serviceOption === "Hosted & Maintained"}
-                      onChange={handleInputChange}
-                      className="form-radio h-4 w-4 text-primary-cyan bg-gray-700 border-gray-600 focus:ring-primary-cyan"
-                    />
-                    <span className="ml-2">Hosted & Maintained</span>
-                  </label>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {["Full Handoff", "Hosted & Maintained"].map((opt) => {
+                    const id = `service-${opt
+                      .replace(/\s+/g, "-")
+                      .toLowerCase()}`;
+                    return (
+                      <label
+                        key={opt}
+                        htmlFor={id}
+                        className={`
+            relative flex items-center justify-center
+            h-[52px] px-4 rounded-lg border-2 cursor-pointer
+            transition-all duration-200
+            ${
+              formData.serviceOption === opt
+                ? "border-primary-cyan bg-primary-cyan/10"
+                : "border-gray-600 bg-gray-700 hover:border-gray-500"
+            }
+          `}
+                      >
+                        <input
+                          id={id}
+                          type="radio"
+                          name="serviceOption"
+                          value={opt}
+                          checked={formData.serviceOption === opt}
+                          onChange={handleInputChange}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        />
+                        <span className="text-gray-200 font-medium select-none">
+                          {opt}
+                        </span>
+                      </label>
+                    );
+                  })}
                 </div>
               </div>
 
