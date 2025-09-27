@@ -14,6 +14,7 @@ import {
   BanknotesIcon,
 } from "@heroicons/react/24/outline";
 import emailjs from "@emailjs/browser";
+import Link from "next/link";
 
 export default function Contact({ motion }: { motion: any }) {
   const { isVisible, sectionRef } = useIntersectionObserver();
@@ -432,9 +433,24 @@ export default function Contact({ motion }: { motion: any }) {
             Forging digital excellence, one project at a time.
           </p>
         </div>
-        <p className="text-gray-500 text-sm">
-          &copy; {new Date().getFullYear()} ZyForge. All rights reserved.
-        </p>
+        <div className="text-gray-500 text-sm">
+          <p>&copy; {new Date().getFullYear()} ZyForge. All rights reserved.</p>
+          <div className="mt-2">
+            <Link
+              href="/legal/privacy-policy"
+              className="hover:text-primary-cyan transition-colors duration-300"
+            >
+              Privacy Policy
+            </Link>
+            <span className="mx-2">|</span>
+            <Link
+              href="/legal/terms-and-conditions"
+              className="hover:text-primary-cyan transition-colors duration-300"
+            >
+              Terms & Conditions
+            </Link>
+          </div>
+        </div>
       </footer>
     </AnimatedSection>
   );
