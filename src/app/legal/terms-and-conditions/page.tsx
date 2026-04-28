@@ -1,102 +1,105 @@
-import React from "react";
+"use client";
 
-const TermsAndConditionsPage = () => {
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+
+export default function TermsAndConditions() {
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Terms &amp; Conditions</h1>
+    <div className="min-h-screen bg-[#050505] text-white py-12 px-6 relative overflow-hidden">
+      {/* Background Glows */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-orange-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-orange-600/5 blur-[120px] rounded-full pointer-events-none" />
 
-      <p className="mb-4">
-        Welcome to{" "}
-        <a
-          href="https://zyforge.com"
-          className="text-blue-600 underline"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="max-w-4xl mx-auto relative z-10">
+        <div className="flex justify-between items-center mb-16">
+          <Link href="/" className="text-2xl font-syne font-bold gradient-text">
+            ZyForge
+          </Link>
+          <Link href="/" className="inline-flex items-center text-text-muted hover:text-orange-500 transition-colors">
+            <ArrowLeftIcon className="w-4 h-4 mr-2" />
+            Back to Home
+          </Link>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-12"
         >
-          Zyforge
-        </a>
-        . By accessing or using this website, you agree to abide by these Terms
-        & Conditions. If you disagree with any part of these terms, please do
-        not use our site.
-      </p>
+          <header>
+            <h1 className="text-5xl font-syne font-bold mb-4 tracking-tight">
+              Terms & <span className="gradient-text">Conditions</span>
+            </h1>
+            <p className="text-text-secondary">Last Updated: April 28, 2024</p>
+          </header>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">Use of the Website</h2>
-      <p className="mb-4">
-        You may use our site for lawful purposes only. You agree not to misuse
-        the site (for example, by interfering with it, introducing viruses, or
-        attempting unauthorized access). We reserve the right to restrict or
-        block access to any user for violation of these rules.
-      </p>
+          <section className="space-y-8 text-text-secondary leading-relaxed">
+            <div className="space-y-4">
+              <h2 className="text-2xl font-syne font-bold text-white">1. Agreement to Terms</h2>
+              <p>
+                By accessing or using ZyForge's services, you agree to be bound by these Terms and Conditions. 
+                If you disagree with any part of the terms, you may not access our services.
+              </p>
+            </div>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">
-        Intellectual Property
-      </h2>
-      <p className="mb-4">
-        All content on Zyforge — including text, graphics, logos, images, and
-        software — is the property of Zyforge or its licensors and is protected
-        by copyright, trademark, and other laws. You may not reproduce,
-        distribute, modify, or create derivative works from our content without
-        prior written permission.
-      </p>
+            <div className="space-y-4">
+              <h2 className="text-2xl font-syne font-bold text-white">2. Our Services & Pricing</h2>
+              <p>
+                ZyForge provides custom web development and design services. We operate on a "Zero Upfront Cost" model 
+                for selected projects, meaning initial development phases may begin without a deposit. 
+                Full payment terms, including milestone-based payments and final delivery costs, will be detailed in 
+                the custom proposal provided after the discovery phase.
+              </p>
+            </div>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">
-        Disclaimers &amp; Limitations of Liability
-      </h2>
-      <p className="mb-4">
-        The site is provided “as is” and “as available” without warranties of
-        any kind, either express or implied. To the maximum extent permitted by
-        law, Zyforge disclaims all warranties, including but not limited to
-        merchantability, fitness for a particular purpose, non-infringement, and
-        accuracy of content.
-      </p>
-      <p className="mb-4">
-        Under no circumstances will Zyforge be liable for any indirect,
-        incidental, special, consequential or punitive damages arising from your
-        use (or inability to use) the site, even if we’ve been advised of the
-        possibility of such damages.
-      </p>
+            <div className="space-y-4">
+              <h2 className="text-2xl font-syne font-bold text-white">3. Intellectual Property</h2>
+              <p>
+                Upon final payment for a project, the client is granted full ownership of the final frontend design, 
+                content, and custom assets. ZyForge retains ownership of its underlying software patterns, 
+                reusable code libraries, and generic development frameworks used across multiple projects.
+              </p>
+            </div>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">Third-Party Links</h2>
-      <p className="mb-4">
-        You may find links to external websites on Zyforge. We do not control
-        those sites and are not responsible for their content, policies, or any
-        damages resulting from their use. Linking to other sites does not imply
-        endorsement.
-      </p>
+            <div className="space-y-4">
+              <h2 className="text-2xl font-syne font-bold text-white">4. Client Responsibilities</h2>
+              <p>
+                Clients are responsible for providing accurate project vision data, brand assets (or approval of 
+                placeholders), and timely feedback. Delays in communication may impact the delivery timeline 
+                outlined in the proposal.
+              </p>
+            </div>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">Changes to Terms</h2>
-      <p className="mb-4">
-        We may update these Terms &amp; Conditions from time to time. Changes
-        take effect when posted on this page. It is your responsibility to check
-        this page periodically. Continued use of the site after changes means
-        you accept the new terms.
-      </p>
+            <div className="space-y-4">
+              <h2 className="text-2xl font-syne font-bold text-white">5. Limitation of Liability</h2>
+              <p>
+                ZyForge shall not be held liable for any indirect, incidental, or consequential damages resulting 
+                from the use of our services or any downtime of websites we build. We provide high-performance 
+                solutions but cannot guarantee specific business outcomes (e.g., exact sales numbers).
+              </p>
+            </div>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">Governing Law</h2>
-      <p className="mb-4">
-        These terms are governed by the laws of the Philippines. Any dispute
-        arising under or in connection with these Terms shall be subject to the
-        exclusive jurisdiction of the courts in the Philippines.
-      </p>
+            <div className="space-y-4">
+              <h2 className="text-2xl font-syne font-bold text-white">6. Governing Law</h2>
+              <p>
+                These terms are governed by and construed in accordance with the laws of the Republic of the Philippines. 
+                Any disputes shall be subject to the exclusive jurisdiction of the courts of 
+                <span className="text-white font-bold"> Cebu City, Philippines.</span>
+              </p>
+            </div>
 
-      <h2 className="text-2xl font-semibold mt-6 mb-2">Contact Us</h2>
-      <p className="mb-4">
-        If you have questions about these Terms &amp; Conditions, reach out to
-        us at:
-      </p>
-      <p className="mb-4">
-        Email:{" "}
-        <a
-          href="mailto:zyforge.dev@gmail.com"
-          className="text-blue-600 underline"
-        >
-          zyforge.dev@gmail.com
-        </a>
-      </p>
-
-      <p className="text-sm text-gray-500">Last Updated: September 27, 2025</p>
+            <div className="space-y-4 border-t border-white/5 pt-8">
+              <h2 className="text-2xl font-syne font-bold text-white">Contact Us</h2>
+              <p>
+                For any questions regarding these terms, please contact:
+                <br />
+                <span className="text-orange-500 font-bold">zyforge.dev@gmail.com</span>
+              </p>
+            </div>
+          </section>
+        </motion.div>
+      </div>
     </div>
   );
-};
-
-export default TermsAndConditionsPage;
+}

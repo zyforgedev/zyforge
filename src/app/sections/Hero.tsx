@@ -81,8 +81,8 @@ export default function Hero() {
             variants={itemVariants}
           >
             <p className="text-lg sm:text-xl md:text-2xl text-text-secondary mb-10 leading-relaxed font-light">
-              We craft high-performance, responsive websites for startups and 
-              small businesses in the Philippines. 
+              We are a Cebu-based digital agency crafting high-performance, 
+              responsive websites for startups and small businesses in the Philippines. 
               <span className="block mt-2 font-medium text-orange-400">
                 Premium quality. Zero upfront cost.
               </span>

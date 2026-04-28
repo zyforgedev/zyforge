@@ -22,11 +22,11 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://zyforge.com"),
-  title: "ZyForge - Web Development for Startups and Small Businesses",
+  title: "ZyForge | Premium Web Development Cebu & Philippines",
   description:
-    "Affordable and professional web development services in the Philippines for startups, small businesses, and individuals. Get a modern, responsive, and high-performance website without breaking the bank.",
+    "ZyForge is a Cebu-based digital agency specializing in high-performance websites for startups and small businesses in the Philippines. Premium web design with zero upfront cost.",
   keywords:
-    "web development philippines, freelance, responsive design, web applications, small business websites, startup websites, affordable web design",
+    "web development cebu, web design philippines, startup websites cebu, affordable web developer philippines, ecommerce development cebu, zyforge, cebu tech agency",
   authors: [{ name: "ZyForge" }],
   creator: "ZyForge",
   publisher: "ZyForge",
@@ -46,23 +46,23 @@ export const metadata: Metadata = {
     locale: "en_PH",
     url: "https://zyforge.com",
     siteName: "ZyForge",
-    title: "ZyForge - Web Development for Startups and Small Businesses",
+    title: "ZyForge | Premium Web Development Cebu & Philippines",
     description:
-      "Affordable and professional web development services for startups, small businesses, and individuals.",
+      "Cebu's leading agency for startup and small business web development. High-performance, luxury-tech websites with accessible pricing.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "ZyForge - Web Development Excellence",
+        alt: "ZyForge - Premium Web Development Cebu",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ZyForge - Web Development for Startups and Small Businesses",
+    title: "ZyForge | Web Development Cebu",
     description:
-      "Affordable and professional web development services for startups, small businesses, and individuals.",
+      "Forging digital excellence for startups and businesses in Cebu and throughout the Philippines.",
     images: ["/og-image.png"],
     creator: "@zyforge",
   },
@@ -90,15 +90,38 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
-              "@type": "Organization",
+              "@type": "ProfessionalService",
               name: "ZyForge",
+              alternateName: "ZyForge Web Development",
               url: "https://zyforge.com",
               logo: "https://zyforge.com/og-image.png",
+              image: "https://zyforge.com/og-image.png",
+              description: "Premium web development and design agency based in Cebu, Philippines, specializing in startups and small business solutions.",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Cebu City",
+                addressRegion: "Cebu",
+                addressCountry: "PH"
+              },
+              geo: {
+                "@type": "GeoCoordinates",
+                latitude: "10.3157",
+                longitude: "123.8854"
+              },
+              priceRange: "$$",
+              openingHours: "Mo-Fr 09:00-18:00",
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+63-917-555-1234",
+                telephone: "+63-917-000-0000",
                 contactType: "customer service",
+                areaServed: "PH",
+                availableLanguage: "English"
               },
+              sameAs: [
+                "https://twitter.com/zyforge",
+                "https://facebook.com/zyforge",
+                "https://instagram.com/zyforge"
+              ]
             }),
           }}
         />

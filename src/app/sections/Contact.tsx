@@ -40,7 +40,7 @@ export default function Contact() {
             </div>
             <div>
               <p className="text-xs text-text-muted uppercase tracking-widest mb-2 font-bold">Location</p>
-              <p className="text-white font-medium">Remote Worldwide</p>
+              <p className="text-white font-medium">Cebu City, Philippines</p>
             </div>
           </div>
         </div>
