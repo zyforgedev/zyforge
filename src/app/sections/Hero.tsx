@@ -1,10 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { scrollToSection } from "../utils/scrollToSection";
 
-export default function Hero({ motion }: { motion: any }) {
+export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -16,19 +17,20 @@ export default function Hero({ motion }: { motion: any }) {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
       },
     },
   };
 
   const itemVariants: Variants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 30, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        duration: 0.6,
-        ease: "easeOut",
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1], // Custom easeOutExpo
       },
     },
   };
@@ -36,111 +38,94 @@ export default function Hero({ motion }: { motion: any }) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        backgroundColor: "#1E1E1E",
-        width: "100%",
-        maxWidth: "100vw",
-      }}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505]"
     >
-      {/* Background Elements - Fixed for mobile */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none overflow-hidden">
-        <div
-          className="absolute rounded-full bg-gradient-to-r from-orange-500 to-red-500 blur-3xl animate-pulse-custom"
-          style={{
-            top: "25%",
-            left: "25%",
-            width: "min(16rem, 40vw)",
-            height: "min(16rem, 40vh)",
-            maxWidth: "256px",
-            maxHeight: "256px",
-          }}
-        ></div>
-        <div
-          className="absolute rounded-full bg-gradient-to-r from-orange-400 to-yellow-500 blur-3xl animate-pulse-custom"
-          style={{
-            bottom: "25%",
-            right: "25%",
-            width: "min(12rem, 35vw)",
-            height: "min(12rem, 35vh)",
-            maxWidth: "192px",
-            maxHeight: "192px",
-            animationDelay: "1s",
-          }}
-        ></div>
+      {/* Background Glows */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-orange-600/10 rounded-full blur-[120px] animate-glow" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-orange-500/5 rounded-full blur-[100px] animate-glow" style={{ animationDelay: "2s" }} />
+        
+        {/* Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]" 
+          style={{ 
+            backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
+            backgroundSize: "40px 40px"
+          }} 
+        />
       </div>
 
-      {/* Gradient overlay - constrained to container */}
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-black opacity-50 w-max"></div>
-
-      {/* Main content container - with proper constraints */}
-      <div
-        className="relative z-10 w-full px-4 sm:px-6 lg:px-8"
-        style={{ maxWidth: "100vw" }}
-      >
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10">
         <motion.div
-          className="text-center max-w-5xl mx-auto"
+          className="text-center"
           variants={containerVariants}
           initial="hidden"
           animate={isLoaded ? "visible" : "hidden"}
-          style={{ width: "100%", maxWidth: "100%" }}
         >
-          <motion.div className="mb-8" variants={itemVariants}>
-            <h1 className="font-black mb-6 tracking-tight leading-none text-5xl sm:text-6xl md:text-7xl lg:text-9xl">
-              <span className="gradient-text">Zy</span>Forge
-            </h1>
-            <div
-              className="w-16 sm:w-24 h-1 mx-auto mb-8"
-              style={{
-                background: "linear-gradient(135deg, #FF6B1A, #FFB366)",
-              }}
-            ></div>
+          <motion.div variants={itemVariants} className="mb-4">
+            <span className="inline-block px-4 py-1.5 rounded-full border border-orange-500/20 bg-orange-500/5 text-orange-500 text-sm font-medium tracking-wider uppercase mb-6">
+              Web Development Excellence
+            </span>
           </motion.div>
 
-          <motion.div
-            className="px-4 max-w-4xl mx-auto"
+          <motion.h1 
             variants={itemVariants}
-            style={{ width: "100%", maxWidth: "100%" }}
+            className="font-syne font-bold text-5xl sm:text-7xl md:text-8xl lg:text-9xl mb-8 tracking-tight"
           >
-            <p className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6 sm:mb-8 leading-relaxed font-light">
-              Your partner in building a strong online presence. We create
-              modern, responsive, and high-performance websites for startups,
-              small businesses, and individuals — with{" "}
-              <span className="text-orange-400 font-medium">
-                no upfront payment required.
+            Forge Your <br />
+            <span className="gradient-text">Digital Legacy</span>
+          </motion.h1>
+
+          <motion.div
+            className="max-w-3xl mx-auto"
+            variants={itemVariants}
+          >
+            <p className="text-lg sm:text-xl md:text-2xl text-text-secondary mb-10 leading-relaxed font-light">
+              We craft high-performance, responsive websites for startups and 
+              small businesses in the Philippines. 
+              <span className="block mt-2 font-medium text-orange-400">
+                Premium quality. Zero upfront cost.
               </span>
             </p>
-
-            <p className="text-base sm:text-lg text-gray-400 mb-10 sm:mb-12 max-w-2xl mx-auto">
-              You pay only when your project is completed and you're completely
-              satisfied.
-            </p>
           </motion.div>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center px-4 max-w-2xl mx-auto"
+            className="flex flex-col sm:flex-row gap-5 justify-center items-center"
             variants={itemVariants}
-            style={{ width: "100%" }}
           >
-            <motion.button
-              onClick={() => scrollToSection("services")}
-              className="btn-primary text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              style={{ maxWidth: "100%" }}
+            <Link
+              href="/start-project"
+              className="btn-primary group"
             >
-              Explore Services
-            </motion.button>
+              Get Started
+              <svg 
+                className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" 
+                fill="none" 
+                viewBox="0 0 24 24" 
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+            <button
+              onClick={() => scrollToSection("process")}
+              className="btn-secondary"
+            >
+              Our Process
+            </button>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Scroll indicator - hidden on mobile */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden sm:block">
-        <div className="w-6 h-10 border-2 border-orange-500 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-orange-500 rounded-full mt-2 animate-pulse"></div>
-        </div>
-      </div>
+      {/* Scroll indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden sm:block"
+      >
+        <div className="w-[1px] h-16 bg-gradient-to-b from-orange-500/50 to-transparent" />
+      </motion.div>
     </section>
   );
 }

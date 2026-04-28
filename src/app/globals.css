@@ -2,30 +2,34 @@
 
 /* Custom CSS Variables */
 :root {
-  --primary-bg: #1e1e1e;
-  --secondary-bg: #2f2f2f;
-  --card-bg: #3a3a3a;
+  --primary-bg: #050505;
+  --secondary-bg: #0a0a0a;
+  --card-bg: rgba(20, 20, 20, 0.6);
   --accent-orange: #ff6b1a;
   --accent-orange-hover: #e55a15;
+  --accent-glow: rgba(255, 107, 26, 0.4);
   --text-primary: #ffffff;
-  --text-secondary: #b4b4b4;
+  --text-secondary: #d1d1d1;
   --text-muted: #888888;
-  --border-color: #404040;
+  --border-color: rgba(255, 255, 255, 0.08);
+  
+  --font-syne: var(--font-syne);
+  --font-outfit: var(--font-outfit);
 }
 
 /* Mobile overflow fixes */
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden; /* Prevent horizontal scrolling on html */
+  overflow-x: hidden;
+  background-color: var(--primary-bg);
 }
 
 body {
   background-color: var(--primary-bg);
   color: var(--text-primary);
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
+  font-family: var(--font-outfit), sans-serif;
   line-height: 1.6;
-  overflow-x: hidden; /* Prevent horizontal scrolling on body */
+  overflow-x: hidden;
   width: 100%;
   max-width: 100%;
   position: relative;
@@ -113,130 +117,137 @@ body {
 }
 
 /* Utility classes */
-.animate-fadeInUp {
-  animation: fadeInUp 0.8s ease-out forwards;
+.font-syne {
+  font-family: var(--font-syne), sans-serif;
 }
 
-.animate-fadeInLeft {
-  animation: fadeInLeft 0.8s ease-out forwards;
+.font-outfit {
+  font-family: var(--font-outfit), sans-serif;
 }
 
-.animate-fadeInRight {
-  animation: fadeInRight 0.8s ease-out forwards;
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
 }
 
-.animate-pulse-custom {
-  animation: pulse 2s ease-in-out infinite;
+.glass-nav {
+  background: rgba(5, 5, 5, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.glow-orange {
+  box-shadow: 0 0 30px var(--accent-glow);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent-orange), #ffb366);
-  background-clip: text;
+  background: linear-gradient(135deg, #ff6b1a 0%, #ffb366 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
 }
 
 .gradient-border {
   position: relative;
-  z-index: 0;
-  border-radius: 12px;
-  border: 2px solid transparent;
-  background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-    linear-gradient(135deg, var(--accent-orange), #ffb366) border-box;
+  background: linear-gradient(var(--secondary-bg), var(--secondary-bg)) padding-box,
+              linear-gradient(135deg, #ff6b1a, #ffb366) border-box;
+  border: 1px solid transparent;
 }
 
-.glass-effect {
-  backdrop-filter: blur(10px);
-  background: rgba(30, 30, 30, 0.8);
-  border: 1px solid rgba(255, 107, 26, 0.2);
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 
-/* Updated section padding with mobile-first approach */
-.section-padding {
-  padding: 3rem 1rem; /* Reduced padding on mobile */
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.animate-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
 }
 
 /* Button styles */
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-orange), #e55a15);
+  background: linear-gradient(135deg, #ff6b1a, #e55a15);
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 8px;
+  padding: 0.8rem 1.8rem;
+  border-radius: 99px;
   font-weight: 600;
-  text-decoration: none;
-  display: inline-block;
-  transition: all 0.3s ease;
+  font-family: var(--font-syne);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 107, 26, 0.3);
-  word-wrap: break-word;
-  max-width: 100%;
-  box-sizing: border-box;
+  box-shadow: 0 4px 20px rgba(255, 107, 26, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 107, 26, 0.4);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(255, 107, 26, 0.4);
 }
 
 .btn-secondary {
   background: transparent;
-  color: var(--accent-orange);
-  padding: 1rem 2rem;
-  border: 2px solid var(--accent-orange);
-  border-radius: 8px;
-  font-weight: 600;
-  text-decoration: none;
-  display: inline-block;
+  color: white;
+  padding: 0.8rem 1.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 99px;
+  font-weight: 500;
+  font-family: var(--font-syne);
   transition: all 0.3s ease;
   cursor: pointer;
-  word-wrap: break-word;
-  max-width: 100%;
-  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-secondary:hover {
-  background: var(--accent-orange);
-  color: white;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--accent-orange);
   transform: translateY(-2px);
 }
 
-/* Card hover effects */
-.service-card {
-  transition: all 0.3s ease;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.service-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-/* Parallax effect - disabled on mobile to prevent overflow */
-.parallax {
-  transform: translateZ(0);
-  will-change: transform;
+/* Section transitions */
+.section-padding {
+  padding: 6rem 1.5rem;
 }
 
 @media (max-width: 768px) {
-  .parallax {
-    transform: none; /* Disable parallax on mobile */
-    will-change: auto;
+  .section-padding {
+    padding: 4rem 1.25rem;
   }
 }
 
-/* Loading states */
-.loading {
-  opacity: 0;
-  transform: translateY(20px);
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
 }
 
-.loaded {
-  opacity: 1;
-  transform: translateY(0);
-  transition: all 0.8s ease-out;
+::-webkit-scrollbar-track {
+  background: var(--primary-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-orange);
 }

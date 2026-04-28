@@ -1,94 +1,69 @@
-"use client";
-
-import { useIntersectionObserver } from "../hooks/useIntersectionObserver";
-import AnimatedSection from "../components/AnimatedSection";
+import { motion } from "framer-motion";
 import SectionHeader from "../components/SectionHeader";
 import ProjectCard from "../components/ProjectCard";
-import CTAButton from "../components/CTAButton";
-import {
-  ShoppingCartIcon,
-  BuildingOfficeIcon,
-  ChartBarIcon,
-  PaintBrushIcon,
-} from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 export default function Portfolio() {
-  const { isVisible, sectionRef } = useIntersectionObserver();
-
-  const projects = [
+  const concepts = [
     {
-      title: "E-Commerce Platform",
-      description:
-        "Modern online store with payment integration and inventory management",
-      tech: ["React", "Node.js", "PostgreSQL", "Stripe"],
-      category: "Web App",
-      image: <ShoppingCartIcon className="w-16 h-16 text-primary-cyan" />,
+      title: "Core: Startup Launchpad",
+      description: "A conversion-focused concept designed for new startups needing a high-impact, professional landing page to secure their first users.",
+      category: "Startup Concept",
+      slug: "core-startup",
+      image: "/Concepts/Core/Core.png",
     },
     {
-      title: "Corporate Website",
-      description:
-        "Professional business website with CMS and SEO optimization",
-      tech: ["WordPress", "PHP", "MySQL", "SEO"],
-      category: "Website",
-      image: <BuildingOfficeIcon className="w-16 h-16 text-primary-cyan" />,
+      title: "Bloom: Boutique Storefront",
+      description: "A warm, elegant e-commerce concept for local boutiques and craft brands wanting a premium shopping experience.",
+      category: "E-commerce Concept",
+      slug: "bloom-boutique",
+      image: "/Concepts/Bloom/Bloom.png",
     },
     {
-      title: "SaaS Dashboard",
-      description: "Analytics dashboard with real-time data visualization",
-      tech: ["Next.js", "TypeScript", "D3.js", "API"],
-      category: "Web App",
-      image: <ChartBarIcon className="w-16 h-16 text-primary-cyan" />,
+      title: "Authority: Small Business Hub",
+      description: "A clean, trustworthy digital home for service-based small businesses looking to establish a professional online presence.",
+      category: "Business Concept",
+      slug: "authority-business",
+      image: "/Concepts/Authority/Authority.png",
     },
     {
-      title: "Portfolio Website",
-      description: "Creative portfolio showcase for digital artist",
-      tech: ["React", "Framer Motion", "Tailwind", "CMS"],
-      category: "Portfolio",
-      image: <PaintBrushIcon className="w-16 h-16 text-primary-cyan" />,
+      title: "Studio: Creator Portfolio",
+      description: "A minimalist, storytelling-first concept for freelancers and creative studios to showcase their best work beautifully.",
+      category: "Creative Concept",
+      slug: "studio-portfolio",
+      image: "/Concepts/Studio/Studio.png",
     },
   ];
 
   return (
-    <AnimatedSection id="portfolio" backgroundColor="#2F2F2F" ref={sectionRef}>
-      <SectionHeader
-        title="Recent"
-        highlightText="Work"
-        subtitle="Showcasing successful projects that drive results for our clients"
-        isVisible={isVisible}
-      />
+    <section id="portfolio" className="section-padding bg-[#050505]">
+      <div className="max-w-7xl mx-auto">
+        <SectionHeader
+          title="Design"
+          highlightText="Concepts"
+          subtitle="A glimpse into the standards we set. These concepts showcase our design philosophy and technical depth."
+        />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8">
-        {projects.map((project, index) => (
-          <ProjectCard
-            key={index}
-            {...project}
-            index={index}
-            isVisible={isVisible}
-          />
-        ))}
-      </div>
-
-      <div
-        className={`text-center mt-12 sm:mt-16 ${
-          isVisible ? "animate-fadeInUp" : "loading"
-        }`}
-        style={{ animationDelay: "0.8s" }}
-      >
-        <p className="text-base sm:text-lg text-gray-300 mb-6">
-          Want to see more examples or discuss your project?
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="btn-secondary text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4">
-            View All Projects
-          </button>
-          <CTAButton
-            targetSection="contact"
-            className="text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4"
-          >
-            Start Your Project
-          </CTAButton>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+          {concepts.map((project, index) => (
+            <ProjectCard
+              key={index}
+              {...project}
+              index={index}
+            />
+          ))}
         </div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mt-20"
+        >
+          <p className="text-text-secondary mb-8">Inspired by these concepts?</p>
+          <Link href="/start-project" className="btn-primary">Forge Your Own Vision</Link>
+        </motion.div>
       </div>
-    </AnimatedSection>
+    </section>
   );
 }

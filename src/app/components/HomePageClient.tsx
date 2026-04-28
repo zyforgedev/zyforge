@@ -1,57 +1,33 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useActiveSection } from "../hooks/useActiveSection";
 
 // Import sections
 import Hero from "../sections/Hero";
 import Services from "../sections/Services";
 import About from "../sections/About";
+import Portfolio from "../sections/Portfolio";
 import Process from "../sections/Process";
 import Contact from "../sections/Contact";
 
 // Import components
 import FloatingNav from "./FloatingNav";
 
+const SECTIONS = ["hero", "services", "about", "portfolio", "process", "contact"];
+
 export default function HomePageClient() {
-  const [activeSection, setActiveSection] = useState("hero");
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["hero", "services", "about", "process", "contact"];
-      const scrollPosition = window.scrollY + 100;
-
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const height = element.offsetHeight;
-
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + height
-          ) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const activeSection = useActiveSection(SECTIONS);
 
   return (
     <>
       <FloatingNav activeSection={activeSection} />
       <main className="relative">
-        <Hero motion={motion} />
-        <Services motion={motion} />
-        <About motion={motion} />
-        {/* <Portfolio /> */}
-        <Process motion={motion} />
-        <Contact motion={motion} />
+        <Hero />
+        <Services />
+        <About />
+        <Portfolio />
+        <Process />
+        <Contact />
       </main>
     </>
   );

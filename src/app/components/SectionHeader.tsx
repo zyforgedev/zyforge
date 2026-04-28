@@ -1,34 +1,33 @@
+import { motion } from "framer-motion";
+
 interface SectionHeaderProps {
   title: string;
   highlightText: string;
   subtitle?: string;
-  isVisible: boolean;
 }
 
 export default function SectionHeader({
   title,
   highlightText,
   subtitle,
-  isVisible,
 }: SectionHeaderProps) {
   return (
-    <div
-      className={`text-center mb-12 sm:mb-16 ${
-        isVisible ? "animate-fadeInUp" : "loading"
-      }`}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="text-center mb-16"
     >
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">
+      <h2 className="text-3xl sm:text-5xl font-syne font-bold mb-6 text-white tracking-tight">
         {title} <span className="gradient-text">{highlightText}</span>
       </h2>
-      <div
-        className="w-12 sm:w-16 h-1 mx-auto mb-4"
-        style={{ background: "linear-gradient(135deg, #FF6B1A, #FFB366)" }}
-      ></div>
+      <div className="w-16 h-1 mx-auto mb-6 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full" />
       {subtitle && (
-        <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
+        <p className="text-lg text-text-secondary max-w-2xl mx-auto leading-relaxed">
           {subtitle}
         </p>
       )}
-    </div>
+    </motion.div>
   );
 }

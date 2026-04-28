@@ -1,76 +1,75 @@
+import { motion } from "framer-motion";
 import { ReactNode } from "react";
+import Link from "next/link";
 
 interface ProjectCardProps {
   title: string;
   description: string;
-  tech: string[];
   category: string;
-  image: ReactNode;
+  slug: string;
+  image: string | ReactNode;
   index: number;
-  isVisible: boolean;
 }
 
 export default function ProjectCard({
   title,
   description,
-  tech,
   category,
+  slug,
   image,
   index,
-  isVisible,
 }: ProjectCardProps) {
   return (
-    <div
-      className={`group relative overflow-hidden rounded-xl glass-effect hover:transform hover:scale-[1.02] transition-all duration-500 ${
-        isVisible ? "animate-fadeInUp" : "loading"
-      }`}
-      style={{
-        backgroundColor: "#3A3A3A",
-        animationDelay: `${index * 0.15}s`,
-      }}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="glass-card group overflow-hidden flex flex-col"
     >
-      {/* Project Image Placeholder */}
-      <div className="relative h-48 sm:h-56 bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center overflow-hidden">
-        <div className="text-6xl sm:text-8xl opacity-50 group-hover:scale-110 transition-transform duration-500">
-          {image}
+      <div className="relative h-64 bg-gradient-to-br from-white/5 to-transparent flex items-center justify-center overflow-hidden border-b border-white/10">
+        <div className="w-full h-full text-orange-500/30 group-hover:scale-110 transition-all duration-700 flex items-center justify-center">
+          {typeof image === 'string' ? (
+            <div className="relative w-full h-full">
+              <img 
+                src={image} 
+                alt={title} 
+                className="w-full h-full object-cover object-top brightness-[0.7] group-hover:brightness-[0.8] transition-all duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-black/20" />
+            </div>
+          ) : (
+            <div className="group-hover:text-orange-500/50">
+              {image}
+            </div>
+          )}
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent group-hover:from-orange-500/20 transition-colors duration-300"></div>
-
-        {/* Category Badge */}
-        <div className="absolute top-4 left-4 px-3 py-1 bg-orange-500 text-white text-xs font-semibold rounded-full">
+        
+        <div className="absolute top-4 left-4 px-3 py-1 bg-white/5 backdrop-blur-md border border-white/10 text-orange-500 text-[10px] uppercase tracking-widest font-bold rounded-full">
           {category}
         </div>
       </div>
 
-      {/* Project Info */}
-      <div className="p-6">
-        <h3 className="text-xl sm:text-2xl font-bold mb-3 text-white group-hover:text-orange-300 transition-colors duration-300">
+      <div className="p-8 flex flex-col flex-grow">
+        <h3 className="text-2xl font-syne font-bold text-white mb-3 group-hover:text-orange-500 transition-colors">
           {title}
         </h3>
-        <p className="text-sm sm:text-base text-gray-300 mb-4 leading-relaxed">
+        <p className="text-text-secondary text-sm leading-relaxed mb-8">
           {description}
         </p>
 
-        {/* Tech Stack */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {tech.map((techItem, techIndex) => (
-            <span
-              key={techIndex}
-              className="px-2 sm:px-3 py-1 bg-gray-700 text-gray-300 text-xs sm:text-sm rounded-md"
-            >
-              {techItem}
-            </span>
-          ))}
+        <div className="mt-auto">
+          <Link 
+            href={`/concepts/${slug}`}
+            className="inline-flex items-center text-sm font-bold text-white hover:text-orange-500 transition-colors group/btn"
+          >
+            View Concept
+            <svg className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
         </div>
-
-        {/* View Project Button */}
-        <button className="text-orange-400 hover:text-orange-300 font-semibold text-sm transition-colors duration-300 flex items-center">
-          View Details
-          <span className="ml-2 group-hover:translate-x-1 transition-transform duration-300">
-            →
-          </span>
-        </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
