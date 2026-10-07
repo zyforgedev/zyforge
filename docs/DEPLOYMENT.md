@@ -1,8 +1,23 @@
-# Deployment and indexing handoff
+# Deployment and indexing
 
-Prepared 7 October 2026. Source changes have passed a production build and native
-browser checks. These checks are local evidence, not a live deployment or indexing
-claim. No paid plan, trial, domain purchase or account agreement was accepted.
+Updated 7 October 2026. PR #1 is merged into `main` as
+`bddf4341902183a5f3539954b024994c44031ce8`. Netlify production deploy
+`6ac6225e8a98eb3a06ea3f8a` is Published from that commit, with public production
+and private previews. The owner completed account/access consent and entered the
+Production-only secret; the agent did not create or read the key. Two approved
+internal inquiries show both the form's success state and Resend's Delivered event
+at the business inbox. The received public-logo attachment matches the original
+file's SHA256. These tests are not customer leads.
+
+Porkbun's four Netlify nameservers were saved and confirmed by reopening its
+editor. A public Google DNS lookup sees the four assigned nameservers, and the
+apex A records match the Netlify subdomain's A records. Netlify's first manual
+verification passed; a later check still reported that the custom domain was not
+served by Netlify. The browser still displays the old Vercel site. Custom-domain
+propagation, TLS and live crawl-file checks remain open; preserve the previous
+deployment until these pass. No paid plan, trial or domain transfer was used.
+Search Console domain ownership is verified under Zyforge's Google account using
+an additional TXT record. Sitemap submission and indexing of the update remain open.
 
 ## Host
 
@@ -11,7 +26,7 @@ documentation limits it to personal, non-commercial use. Do not push these
 business changes while that integration could deploy them to an ineligible plan.
 Do not upgrade under the owner's zero-upfront-cost constraint.
 
-Netlify is the recommended free candidate. Its current official guide permits
+Netlify is the selected free host. Its current official guide permits
 commercial projects on Free. Pricing lists $0 and 300 credits per month; production
 deploys use 15 credits, with requests, bandwidth and compute also consuming credits.
 When a project reaches its limit, all projects on that account pause until the next
@@ -25,14 +40,34 @@ action. A static-only export would lose that functionality.
 Functions have a 6MB buffered payload limit. The form now permits up to eight
 attachments and 3MiB combined file bytes, leaving headroom for file Base64, request
 encoding and field metadata. The visible copy calls this 3MB. Larger assets can be
-discussed through the existing email contact route. The provider's deployed upload
-behaviour still needs an actual post-deployment check.
+discussed through the existing email contact route. The deployed no-file and
+704072-byte PNG attachment paths passed the approved internal delivery checks.
+The maximum payload was not exercised with a real email.
 
-The owner must complete any new Netlify account terms and GitHub access grant.
+The owner must complete any future Netlify account terms and GitHub access grant.
 For a GitHub connection, select only zyforgedev/zyforge where the UI allows it.
 The agent must not accept these binding/access steps on the owner's behalf.
 
-## Release sequence
+## Release and rollback checks
+
+The initial account, source-publication, Next.js deployment and email-delivery
+steps below are complete. Keep them as an operational checklist for future moves.
+The current eleven-record DNS zone contains root/www Netlify routing, the existing
+Google TXT plus the new Zyforge Search Console TXT, the existing Vercel wildcard,
+three CAA permissions and three verified Resend sending records. Root email
+forwarding was not enabled. Registrar ownership,
+domain lock, privacy and DNSSEC settings were not changed.
+
+Assigned nameservers: `dns1.p07.nsone.net`, `dns2.p07.nsone.net`,
+`dns3.p07.nsone.net`, `dns4.p07.nsone.net`. Previous nameservers for rollback:
+`ns1.vercel-dns.com`, `ns2.vercel-dns.com`. Preserve the Vercel project, its previous
+deployment and the separate HyUI project. Remove only the main site's Vercel
+domain attachment after Netlify's custom-domain HTTPS and redirects pass.
+
+HyUI's existing HTTPS page and assets load, but the observed app renders blank
+with a JavaScript initialization error. Its source, deployment and DNS target were
+not modified in this migration. No pre-migration runtime comparison is available;
+do not describe its app as verified healthy.
 
 1. Confirm an eligible Free Netlify account and complete the required owner access
    steps. Check the actual account plan before importing the project.
