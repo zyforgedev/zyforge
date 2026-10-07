@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 export default function CorePreview() {
@@ -10,9 +9,9 @@ export default function CorePreview() {
       {/* Mini Nav */}
       <nav className="p-6 flex justify-between items-center border-b border-slate-800">
         <div className="text-xl font-bold tracking-tighter">CORE</div>
-        <Link href="/concepts/core-startup" className="text-sm text-slate-400 hover:text-white flex items-center">
-          <ArrowLeftIcon className="w-4 h-4 mr-2" /> Back to Blueprint
-        </Link>
+        <a href="/concepts/core-startup" className="text-sm text-slate-400 hover:text-white flex items-center">
+          <ArrowLeftIcon className="w-4 h-4 mr-2" /> Back to concept
+        </a>
       </nav>
 
       {/* Hero Section */}
@@ -48,10 +47,10 @@ export default function CorePreview() {
           transition={{ delay: 0.3 }}
           className="flex justify-center gap-4"
         >
-          <button className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-full font-bold transition-all">
+          <button type="button" disabled title="Illustrative button; this demo does not collect sign-ups." className="bg-blue-600 text-white px-8 py-4 rounded-full font-bold">
             Join the Waitlist
           </button>
-          <button className="border border-slate-700 hover:bg-slate-900 text-white px-8 py-4 rounded-full font-bold transition-all">
+          <button type="button" disabled title="Illustrative button." className="border border-slate-700 text-white px-8 py-4 rounded-full font-bold">
             View Demo
           </button>
         </motion.div>
@@ -74,7 +73,7 @@ export default function CorePreview() {
       </section>
 
       <footer className="py-12 text-center text-slate-600 text-sm">
-        &copy; 2024 Core Concept. Forged by ZyForge.
+        Core design concept by Zyforge.
       </footer>
     </div>
   );
