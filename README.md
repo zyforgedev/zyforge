@@ -41,7 +41,11 @@ configured through `RESEND_FROM_EMAIL`.
 
 Porkbun's nameservers now delegate `zyforge.com` to Netlify. Its DNS zone preserves
 Google ownership verification and the Vercel wildcard used by HyUI. The previous
-Vercel deployment remains available while custom-domain propagation and TLS are
-checked. Search Console domain ownership is verified under Zyforge's Google
-account. Sitemap submission and Google indexing of the updated site remain open.
+Vercel deployment remains available for rollback; the main project's custom-domain
+attachment is now absent. Netlify issued the Let's Encrypt certificate, the updated
+site loads at `https://zyforge.com`, and `www` redirects to that primary domain.
+Search Console ownership is verified under Zyforge's Google account. Google reports
+the submitted sitemap as Success with eight discovered pages. Live homepage and
+products tests pass, and indexing requests are queued; indexing and rankings are
+not yet confirmed.
 See the deployment document for the current release gates and rollback.
