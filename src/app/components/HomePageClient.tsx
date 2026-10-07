@@ -3,32 +3,35 @@
 import { useActiveSection } from "../hooks/useActiveSection";
 
 // Import sections
-import Hero from "../sections/Hero";
+import Hero from "../sections/HeroIntro";
 import Services from "../sections/Services";
 import About from "../sections/About";
 import Portfolio from "../sections/Portfolio";
 import Process from "../sections/Process";
 import Contact from "../sections/Contact";
+import Products from "../sections/Products";
+import { MotionConfig } from "framer-motion";
 
 // Import components
-import FloatingNav from "./FloatingNav";
+import SiteHeader from "./SiteHeader";
 
-const SECTIONS = ["hero", "services", "about", "portfolio", "process", "contact"];
+const SECTIONS = ["hero", "products", "services", "about", "portfolio", "process", "contact"];
 
 export default function HomePageClient() {
   const activeSection = useActiveSection(SECTIONS);
 
   return (
-    <>
-      <FloatingNav activeSection={activeSection} />
+    <MotionConfig reducedMotion="user">
+      <SiteHeader activeSection={activeSection} />
       <main className="relative">
         <Hero />
+        <Products />
         <Services />
         <About />
         <Portfolio />
         <Process />
         <Contact />
       </main>
-    </>
+    </MotionConfig>
   );
 }
