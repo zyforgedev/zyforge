@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 import { 
   ArrowLeftIcon, 
   ArrowRightIcon, 
@@ -19,6 +19,8 @@ const steps = [
   { id: 4, title: "Finalize", description: "Almost there!" }
 ];
 
+type InquiryFile = { name: string; size: number; type: string; content: string };
+
 export default function StartProject() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
@@ -33,40 +35,50 @@ export default function StartProject() {
     timeline: "",
     message: "",
   });
-  const [files, setFiles] = useState<any[]>([]);
+  const [files, setFiles] = useState<InquiryFile[]>([]);
+  const [isReadingFiles, setIsReadingFiles] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isReadingFiles) return;
     const uploadedFiles = Array.from(e.target.files || []);
     
-    // Check total size (approximate)
-    const totalSize = uploadedFiles.reduce((acc, file) => acc + file.size, 0) + 
-                     files.reduce((acc, file) => acc + (file.size || 0), 0);
-    
-    if (totalSize > 20 * 1024 * 1024) { // 20MB limit to be safe
-      setError("Total file size exceeds 20MB limit.");
+    if (uploadedFiles.length + files.length > 8) {
+      setError("Attach up to 8 files.");
       return;
     }
 
-    uploadedFiles.forEach(file => {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setFiles(prev => [...prev, {
-          name: file.name,
-          size: file.size,
-          type: file.type,
-          content: event.target?.result
-        }]);
-      };
-      reader.readAsDataURL(file);
-    });
+    const totalSize = uploadedFiles.reduce((acc, file) => acc + file.size, 0) + 
+                     files.reduce((acc, file) => acc + (file.size || 0), 0);
+    
+    if (totalSize > 3 * 1024 * 1024) {
+      setError("Please keep attachments below 3MB in total.");
+      return;
+    }
+
+    setIsReadingFiles(true);
+    setError("");
+    try {
+      const selected = await Promise.all(uploadedFiles.map(file => new Promise<InquiryFile>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => typeof reader.result === "string"
+          ? resolve({ name: file.name, size: file.size, type: file.type, content: reader.result })
+          : reject(new Error("File reading failed"));
+        reader.onerror = () => reject(new Error("File reading failed"));
+        reader.readAsDataURL(file);
+      })));
+      setFiles(previous => [...previous, ...selected]);
+    } catch {
+      setError("A file could not be read. Please select it again or send your inquiry without it.");
+    } finally {
+      setIsReadingFiles(false);
+    }
   };
 
   const removeFile = (index: number) => {
@@ -75,16 +87,24 @@ export default function StartProject() {
 
   const nextStep = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
+    if (isReadingFiles) {
+      setError("Please wait for the selected files to finish loading.");
+      return;
+    }
     
     // Basic validation per step
     if (currentStep === 1) {
-      if (!formData.name || !formData.email) {
+      if (!formData.name.trim() || !formData.email.trim()) {
         setError("Please fill in your name and email.");
         return;
       }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+        setError("Please enter a valid email address.");
+        return;
+      }
     } else if (currentStep === 2) {
-      const isCustomTypeMissing = formData.projectType === "Custom" && !(formData as any).customProjectType;
-      if (!formData.projectType || isCustomTypeMissing || !formData.hasLogo || !formData.description) {
+      const isCustomTypeMissing = formData.projectType === "Custom" && !formData.customProjectType.trim();
+      if (!formData.projectType || isCustomTypeMissing || !formData.hasLogo || !formData.description.trim()) {
         setError("Please complete all required vision details.");
         return;
       }
@@ -105,7 +125,7 @@ export default function StartProject() {
     
     // Final validation before submission
     if (currentStep < steps.length) return;
-    if (isSubmitting) return;
+    if (isSubmitting || isReadingFiles) return;
 
     setIsSubmitting(true);
     setError("");
@@ -118,16 +138,16 @@ export default function StartProject() {
       } else {
         setError(result.error || "Something went wrong. Please try again.");
       }
-    } catch (err: any) {
+    } catch {
       setError("An unexpected error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Prevent Enter key from submitting the form accidentally
+  // Let focused buttons keep their native keyboard behaviour.
   const handleFormKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'TEXTAREA') {
+    if (e.key === 'Enter' && (e.target as HTMLElement).tagName === 'INPUT' && (e.target as HTMLInputElement).type !== 'file') {
       e.preventDefault();
       if (currentStep < steps.length) {
         nextStep();
@@ -146,9 +166,9 @@ export default function StartProject() {
           <div className="w-20 h-20 bg-orange-500/10 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-8">
             <CheckCircleIcon className="w-12 h-12" />
           </div>
-          <h1 className="text-4xl font-syne font-bold text-white mb-4">Vision Received</h1>
+          <h1 className="text-4xl font-syne font-bold text-white mb-4">Inquiry received</h1>
           <p className="text-text-secondary mb-8">
-            Thank you for trusting ZyForge. We've received your onboarding document and our team will review it within 24 hours.
+            Thank you for contacting Zyforge. Your project details have been sent for review. Keep a copy of your inquiry and use email if you need to add anything.
           </p>
           <Link href="/" className="btn-primary">
             Back to Home
@@ -171,7 +191,7 @@ export default function StartProject() {
             Start Your <span className="gradient-text">Project</span>
           </h1>
           <p className="text-text-secondary text-lg">
-            Complete this discovery document to help us understand your vision.
+            Share the website you need, your budget and timing. This is an inquiry; scope and price are agreed separately.
           </p>
         </div>
 
@@ -196,7 +216,8 @@ export default function StartProject() {
           </div>
         </div>
 
-        <form 
+        <MotionConfig reducedMotion="user">
+        <form
           onSubmit={handleSubmit} 
           onKeyDown={handleFormKeyDown}
           className="glass-card p-8 sm:p-12 relative overflow-hidden"
@@ -213,8 +234,11 @@ export default function StartProject() {
                 <h2 className="text-2xl font-syne font-bold mb-6">The Basics</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-text-secondary">Full Name</label>
+                    <label htmlFor="inquiry-name" className="text-sm font-medium text-text-secondary">Full name</label>
                     <input
+                      id="inquiry-name"
+                      autoComplete="name"
+                      maxLength={120}
                       type="text"
                       name="name"
                       required
@@ -225,8 +249,11 @@ export default function StartProject() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-text-secondary">Email Address</label>
+                    <label htmlFor="inquiry-email" className="text-sm font-medium text-text-secondary">Email address</label>
                     <input
+                      id="inquiry-email"
+                      autoComplete="email"
+                      maxLength={254}
                       type="email"
                       name="email"
                       required
@@ -238,8 +265,11 @@ export default function StartProject() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-text-secondary">Company / Organization (Optional)</label>
+                  <label htmlFor="inquiry-company" className="text-sm font-medium text-text-secondary">Company / organisation (optional)</label>
                   <input
+                    id="inquiry-company"
+                    autoComplete="organization"
+                    maxLength={160}
                     type="text"
                     name="company"
                     value={formData.company}
@@ -261,8 +291,9 @@ export default function StartProject() {
               >
                 <h2 className="text-2xl font-syne font-bold mb-6">The Vision</h2>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-text-secondary">Project Type</label>
+                  <label htmlFor="inquiry-type" className="text-sm font-medium text-text-secondary">Project type</label>
                   <select
+                    id="inquiry-type"
                     name="projectType"
                     required
                     value={formData.projectType}
@@ -284,12 +315,14 @@ export default function StartProject() {
                     animate={{ opacity: 1, y: 0 }}
                     className="space-y-2"
                   >
-                    <label className="text-sm font-medium text-text-secondary">Please specify project type</label>
+                    <label htmlFor="inquiry-custom-type" className="text-sm font-medium text-text-secondary">Please specify project type</label>
                     <input
+                      id="inquiry-custom-type"
+                      maxLength={160}
                       type="text"
                       name="customProjectType"
                       required
-                      value={(formData as any).customProjectType || ""}
+                      value={formData.customProjectType}
                       onChange={handleInputChange}
                       className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-orange-500 transition-colors"
                       placeholder="e.g. Browser Extension, Website AI Integration, etc."
@@ -302,14 +335,16 @@ export default function StartProject() {
                   <div className="flex gap-4">
                     <button
                       type="button"
-                      onClick={() => setFormData({ ...formData, hasLogo: "yes" } as any)}
+                      aria-pressed={formData.hasLogo === "yes"}
+                      onClick={() => setFormData({ ...formData, hasLogo: "yes" })}
                       className={`flex-1 py-3 rounded-xl border transition-all ${formData.hasLogo === "yes" ? "border-orange-500 bg-orange-500/10 text-white" : "border-white/10 bg-white/5 text-text-secondary hover:border-white/20"}`}
                     >
                       Yes, I have one
                     </button>
                     <button
                       type="button"
-                      onClick={() => setFormData({ ...formData, hasLogo: "no" } as any)}
+                      aria-pressed={formData.hasLogo === "no"}
+                      onClick={() => setFormData({ ...formData, hasLogo: "no" })}
                       className={`flex-1 py-3 rounded-xl border transition-all ${formData.hasLogo === "no" ? "border-orange-500 bg-orange-500/10 text-white" : "border-white/10 bg-white/5 text-text-secondary hover:border-white/20"}`}
                     >
                       No, I need one
@@ -323,15 +358,17 @@ export default function StartProject() {
                       className="p-4 bg-orange-500/5 border border-orange-500/20 rounded-xl"
                     >
                       <p className="text-xs text-orange-500/80 leading-relaxed italic">
-                        <strong>Note:</strong> Since you don't have a logo yet, we will create a high-quality placeholder brand identity for you during the initial build phase.
+                        Logo or branding work can be discussed as part of the project scope.
                       </p>
                     </motion.div>
                   )}
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-text-secondary">Brief Description</label>
+                  <label htmlFor="inquiry-description" className="text-sm font-medium text-text-secondary">Brief description</label>
                   <textarea
+                    id="inquiry-description"
+                    maxLength={5000}
                     name="description"
                     required
                     rows={4}
@@ -355,8 +392,10 @@ export default function StartProject() {
                 <h2 className="text-2xl font-syne font-bold mb-6">Resources & Budget</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-text-secondary">Budget Range</label>
+                    <label htmlFor="inquiry-budget" className="text-sm font-medium text-text-secondary">Budget range (optional)</label>
                     <input
+                      id="inquiry-budget"
+                      maxLength={160}
                       type="text"
                       name="budget"
                       value={formData.budget}
@@ -366,8 +405,10 @@ export default function StartProject() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-text-secondary">Expected Timeline</label>
+                    <label htmlFor="inquiry-timeline" className="text-sm font-medium text-text-secondary">Expected timeline (optional)</label>
                     <input
+                      id="inquiry-timeline"
+                      maxLength={160}
                       type="text"
                       name="timeline"
                       value={formData.timeline}
@@ -379,20 +420,22 @@ export default function StartProject() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-text-secondary">Project Assets (Logos, Guidelines, etc.)</label>
-                  <div 
-                    onClick={() => fileInputRef.current?.click()}
+                  <label htmlFor="inquiry-files" className="text-sm font-medium text-text-secondary">Project assets (optional)</label>
+                  <div
                     className="border-2 border-dashed border-white/10 rounded-2xl p-8 text-center cursor-pointer hover:border-orange-500/50 hover:bg-orange-500/5 transition-all"
                   >
                     <CloudArrowUpIcon className="w-10 h-10 text-orange-500 mx-auto mb-4" />
-                    <p className="text-text-secondary">Drag & drop files here or <span className="text-orange-500 font-bold">browse</span></p>
-                    <p className="text-text-muted text-xs mt-2">Max 20MB total. Images, PDF, Zip.</p>
+                    <p className="text-text-secondary mb-4">Choose files to attach to your inquiry.</p>
+                    <p id="inquiry-file-help" className="text-text-muted text-sm mb-4">Up to 8 files, 3MB total. Images, PDF or ZIP. Send only material you want Zyforge to review. Email us for larger assets.</p>
                     <input 
+                      id="inquiry-files"
+                      aria-describedby="inquiry-file-help"
+                      accept="image/*,.pdf,.zip"
                       type="file" 
-                      ref={fileInputRef} 
+                      disabled={isReadingFiles}
                       onChange={handleFileUpload} 
                       multiple 
-                      className="hidden" 
+                      className="w-full text-sm file:mr-4 file:rounded file:border file:border-white/20 file:bg-white/10 file:px-4 file:py-3 file:text-white"
                     />
                   </div>
 
@@ -408,7 +451,8 @@ export default function StartProject() {
                           <button 
                             type="button" 
                             onClick={() => removeFile(i)}
-                            className="p-1 hover:bg-white/10 rounded-lg text-text-muted hover:text-red-500 transition-all"
+                            aria-label={`Remove ${file.name}`}
+                            className="flex min-h-11 min-w-11 shrink-0 items-center justify-center hover:bg-white/10 rounded-lg text-text-muted hover:text-red-500 transition-all"
                           >
                             <XMarkIcon className="w-4 h-4" />
                           </button>
@@ -429,9 +473,23 @@ export default function StartProject() {
                 className="space-y-6"
               >
                 <h2 className="text-2xl font-syne font-bold mb-6">Finalize</h2>
+                <dl className="inquiry-review">
+                  {[
+                    ["Name", formData.name], ["Email", formData.email],
+                    ["Company", formData.company || "Not specified"],
+                    ["Project type", formData.projectType === "Custom" ? formData.customProjectType : formData.projectType],
+                    ["Existing logo", formData.hasLogo === "yes" ? "Yes" : "No"],
+                    ["Description", formData.description],
+                    ["Budget", formData.budget || "Not specified"],
+                    ["Timeline", formData.timeline || "Not specified"],
+                    ["Attachments", files.length ? files.map(file => file.name).join(", ") : "None"],
+                  ].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
+                </dl>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-text-secondary">Additional Notes</label>
+                  <label htmlFor="inquiry-notes" className="text-sm font-medium text-text-secondary">Additional notes (optional)</label>
                   <textarea
+                    id="inquiry-notes"
+                    maxLength={5000}
                     name="message"
                     rows={6}
                     value={formData.message}
@@ -443,8 +501,7 @@ export default function StartProject() {
 
                 <div className="bg-orange-500/5 border border-orange-500/20 p-6 rounded-2xl">
                   <p className="text-sm text-text-secondary leading-relaxed">
-                    By submitting this form, you're initiating the discovery phase for your project. 
-                    We'll review these details and prepare a custom proposal for our first meeting.
+                    Review the details before sending. This form sends your inquiry and any attachments to Zyforge. It does not start a paid project.
                   </p>
                 </div>
               </motion.div>
@@ -452,7 +509,8 @@ export default function StartProject() {
           </AnimatePresence>
 
           {error && (
-            <motion.div 
+            <motion.div
+              role="alert"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="mt-6 p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-sm"
@@ -461,7 +519,7 @@ export default function StartProject() {
             </motion.div>
           )}
 
-          <div className="mt-12 flex justify-between items-center">
+          <div className="inquiry-actions mt-12 flex flex-wrap justify-between items-center gap-4">
             {currentStep > 1 ? (
               <button
                 type="button"
@@ -486,14 +544,16 @@ export default function StartProject() {
             ) : (
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isReadingFiles}
                 className="btn-primary px-10"
               >
-                {isSubmitting ? "Forging..." : "Submit Discovery Form"}
+                {isSubmitting ? "Sending..." : "Send project inquiry"}
               </button>
             )}
           </div>
         </form>
+        </MotionConfig>
+        <p className="mt-8 text-text-secondary">Prefer email or having trouble with the form? <a className="discovery-link" href="mailto:zyforge.dev@gmail.com">Contact zyforge.dev@gmail.com</a>.</p>
       </div>
     </div>
   );
