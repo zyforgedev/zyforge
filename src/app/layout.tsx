@@ -22,9 +22,9 @@ const outfit = Outfit({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://zyforge.com"),
-  title: "ZyForge | Premium Web Development Cebu & Philippines",
+  title: "Zyforge | Web Development and Digital Tools",
   description:
-    "ZyForge is a Cebu-based digital agency specializing in high-performance websites for startups and small businesses in the Philippines. Premium web design with zero upfront cost.",
+    "Freelance web development in Cebu, Philippines, plus practical spreadsheet tools for small businesses and 3D printing sellers.",
   keywords:
     "web development cebu, web design philippines, startup websites cebu, affordable web developer philippines, ecommerce development cebu, zyforge, cebu tech agency",
   authors: [{ name: "ZyForge" }],
@@ -46,25 +46,24 @@ export const metadata: Metadata = {
     locale: "en_PH",
     url: "https://zyforge.com",
     siteName: "ZyForge",
-    title: "ZyForge | Premium Web Development Cebu & Philippines",
+    title: "Zyforge | Web Development and Digital Tools",
     description:
-      "Cebu's leading agency for startup and small business web development. High-performance, luxury-tech websites with accessible pricing.",
+      "Custom websites, original design studies and practical digital tools from Zyforge in Cebu, Philippines.",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "ZyForge - Premium Web Development Cebu",
+        url: "/ZyForgeLogo.png",
+        width: 1254,
+        height: 1254,
+        alt: "Zyforge flame and anvil logo",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ZyForge | Web Development Cebu",
+    title: "Zyforge | Web Development and Digital Tools",
     description:
       "Forging digital excellence for startups and businesses in Cebu and throughout the Philippines.",
-    images: ["/og-image.png"],
-    creator: "@zyforge",
+    images: ["/ZyForgeLogo.png"],
   },
 };
 
@@ -72,8 +71,6 @@ export const viewport: Viewport = {
   themeColor: "#FF6B1A",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 };
 
 export default function RootLayout({
@@ -94,33 +91,26 @@ export default function RootLayout({
               name: "ZyForge",
               alternateName: "ZyForge Web Development",
               url: "https://zyforge.com",
-              logo: "https://zyforge.com/og-image.png",
-              image: "https://zyforge.com/og-image.png",
-              description: "Premium web development and design agency based in Cebu, Philippines, specializing in startups and small business solutions.",
+              logo: "https://zyforge.com/ZyForgeLogo.png",
+              image: "https://zyforge.com/ZyForgeLogo.png",
+              description: "Freelance web development and practical digital tools for small businesses.",
               address: {
                 "@type": "PostalAddress",
                 addressLocality: "Cebu City",
                 addressRegion: "Cebu",
                 addressCountry: "PH"
               },
-              geo: {
-                "@type": "GeoCoordinates",
-                latitude: "10.3157",
-                longitude: "123.8854"
-              },
               priceRange: "$$",
-              openingHours: "Mo-Fr 09:00-18:00",
               contactPoint: {
                 "@type": "ContactPoint",
-                telephone: "+63-917-000-0000",
+                email: "zyforge.dev@gmail.com",
                 contactType: "customer service",
                 areaServed: "PH",
                 availableLanguage: "English"
               },
               sameAs: [
-                "https://twitter.com/zyforge",
-                "https://facebook.com/zyforge",
-                "https://instagram.com/zyforge"
+                "https://www.facebook.com/profile.php?id=61579057059331",
+                "https://github.com/zyforgedev"
               ]
             }),
           }}
@@ -128,9 +118,9 @@ export default function RootLayout({
       </head>
       <body
         className={`${outfit.className} antialiased`}
-        style={{ overflowX: "hidden" }}
       >
-        <div style={{ width: "100%", maxWidth: "100vw", overflowX: "hidden" }}>
+        <a href="#main-content" className="skip-link">Skip to content</a>
+        <div id="main-content" tabIndex={-1} style={{ width: "100%", maxWidth: "100vw" }}>
           {children}
         </div>
       </body>
