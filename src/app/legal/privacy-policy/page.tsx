@@ -31,15 +31,14 @@ export default function PrivacyPolicy() {
             <h1 className="text-5xl font-syne font-bold mb-4 tracking-tight">
               Privacy <span className="gradient-text">Policy</span>
             </h1>
-            <p className="text-text-secondary">Last Updated: April 28, 2024</p>
+            <p className="text-text-secondary">Last updated: October 7, 2026</p>
           </header>
 
           <section className="space-y-6 text-text-secondary leading-relaxed">
             <h2 className="text-2xl font-syne font-bold text-white">1. Introduction</h2>
             <p>
-              Welcome to ZyForge. We respect your privacy and are committed to protecting your personal data. 
-              This privacy policy will inform you as to how we look after your personal data when you visit our website 
-              (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.
+              Zyforge is a freelance web development business based in Cebu, Philippines.
+              This notice explains the information used by this website and the project inquiry form.
             </p>
 
             <h2 className="text-2xl font-syne font-bold text-white">2. Data We Collect</h2>
@@ -47,10 +46,10 @@ export default function PrivacyPolicy() {
               When you use our "Start Project" discovery form or contact us directly, we may collect the following information:
             </p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Identity Data: Name, company name, and professional role.</li>
-              <li>Contact Data: Email address and social media handles.</li>
-              <li>Project Data: Vision documents, logos, brand assets, and budget ranges.</li>
-              <li>Usage Data: Information about how you use our website.</li>
+              <li>Your name, email address and optional company name.</li>
+              <li>Your project type, description, logo status, optional budget, timeline and notes.</li>
+              <li>Files you choose to attach, including their filenames. Attachments are optional.</li>
+              <li>Technical request information processed by the hosting provider, such as an IP address and requested URL.</li>
             </ul>
 
             <h2 className="text-2xl font-syne font-bold text-white">3. How We Use Your Data</h2>
@@ -59,20 +58,30 @@ export default function PrivacyPolicy() {
             </p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Process your project inquiry and provide a custom proposal.</li>
-              <li>Communicate with you regarding your vision.</li>
-              <li>Improve our website and services.</li>
+              <li>Reply to you about scope, pricing, timing and project delivery.</li>
+              <li>Operate and troubleshoot the website and inquiry delivery.</li>
             </ul>
 
-            <h2 className="text-2xl font-syne font-bold text-white">4. Data Security</h2>
+            <h2 className="text-2xl font-syne font-bold text-white">4. Hosting, Email and Checkout</h2>
             <p>
-              We have put in place appropriate security measures to prevent your personal data from being accidentally lost, 
-              used, or accessed in an unauthorized way. We use encrypted transmission (SSL) for all form submissions.
+              Netlify hosts this website. Submitted inquiry details and attachments are processed by the
+              website server and Resend to deliver an email to Zyforge&apos;s Gmail business inbox.
+              These providers may process information outside the Philippines. Please send only the
+              information needed to discuss your project, and do not attach passwords, identity documents
+              or payment details.
+            </p>
+            <p>
+              The digital tools catalogue links to Gumroad. Checkout, payment and purchased-file delivery
+              take place on Gumroad under its own policies. This website does not collect payment card details.
+              Links to Facebook and other external websites are also subject to those services&apos; policies.
             </p>
 
-            <h2 className="text-2xl font-syne font-bold text-white">5. Cookies</h2>
+            <h2 className="text-2xl font-syne font-bold text-white">5. Cookies and Your Choices</h2>
             <p>
-              We use minimal cookies for essential website functionality and performance analysis. You can set your browser 
-              to refuse all or some browser cookies, but some parts of this website may become inaccessible or not function properly.
+              The website code does not include advertising pixels or a visitor analytics script.
+              External services you visit may use their own cookies. You can contact Zyforge to ask about
+              information you provided or request a correction or deletion. Inquiry emails and attachments
+              may remain in the business inbox while needed for project communication and records.
             </p>
 
             <h2 className="text-2xl font-syne font-bold text-white">6. Contact Information</h2>
