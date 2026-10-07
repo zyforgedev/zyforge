@@ -2,17 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://zyforge.com/</loc>
-    <lastmod>2025-09-27</lastmod>
     <priority>1.0</priority>
   </url>
+  <url><loc>https://zyforge.com/products</loc></url>
+  <url><loc>https://zyforge.com/concepts/core-startup</loc></url>
+  <url><loc>https://zyforge.com/concepts/bloom-boutique</loc></url>
+  <url><loc>https://zyforge.com/concepts/authority-business</loc></url>
+  <url><loc>https://zyforge.com/concepts/studio-portfolio</loc></url>
   <url>
     <loc>https://zyforge.com/legal/privacy-policy</loc>
-    <lastmod>2025-09-27</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://zyforge.com/legal/terms-and-conditions</loc>
-    <lastmod>2025-09-27</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>
