@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { ArrowLeftIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 
 export default function BloomPreview() {
@@ -11,9 +10,9 @@ export default function BloomPreview() {
       <nav className="p-8 flex justify-between items-center border-b border-[#e7e7e4]">
         <div className="text-2xl font-light tracking-widest uppercase">BLOOM</div>
         <div className="flex items-center gap-8">
-          <Link href="/concepts/bloom-boutique" className="text-sm font-sans text-stone-500 hover:text-stone-900 flex items-center">
-            <ArrowLeftIcon className="w-4 h-4 mr-2" /> Back to Blueprint
-          </Link>
+          <a href="/concepts/bloom-boutique" className="text-sm font-sans text-stone-500 hover:text-stone-900 flex items-center">
+            <ArrowLeftIcon className="w-4 h-4 mr-2" /> Back to concept
+          </a>
           <ShoppingBagIcon className="w-6 h-6 text-stone-700" />
         </div>
       </nav>
@@ -25,7 +24,7 @@ export default function BloomPreview() {
           animate={{ opacity: 1 }}
           className="text-stone-400 font-sans uppercase tracking-[0.3em] text-xs mb-8"
         >
-          Summer Collection 2024
+          Example collection
         </motion.span>
         <motion.h1 
           initial={{ opacity: 0, y: 15 }}
@@ -37,6 +36,9 @@ export default function BloomPreview() {
           <span className="italic">conscious soul.</span>
         </motion.h1>
         <motion.button 
+          type="button"
+          disabled
+          title="Illustrative button; this demo does not accept orders."
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
@@ -59,7 +61,7 @@ export default function BloomPreview() {
       </section>
 
       <footer className="py-20 text-center font-sans text-stone-400 text-xs tracking-widest uppercase">
-        &copy; 2024 Bloom Boutique. Forged by ZyForge.
+        Bloom design concept by Zyforge.
       </footer>
     </div>
   );
