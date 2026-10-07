@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { ArrowLeftIcon, PhoneIcon } from "@heroicons/react/24/outline";
 
 export default function AuthorityPreview() {
@@ -11,10 +10,10 @@ export default function AuthorityPreview() {
       <nav className="p-6 flex justify-between items-center border-b border-gray-100 bg-white sticky top-0 z-50">
         <div className="text-2xl font-black text-blue-900">AUTHORITY</div>
         <div className="flex items-center gap-6">
-          <Link href="/concepts/authority-business" className="text-sm font-medium text-gray-500 hover:text-blue-600 flex items-center">
-            <ArrowLeftIcon className="w-4 h-4 mr-2" /> Back to Blueprint
-          </Link>
-          <button className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold text-sm flex items-center">
+          <a href="/concepts/authority-business" className="text-sm font-medium text-gray-500 hover:text-blue-600 flex items-center">
+            <ArrowLeftIcon className="w-4 h-4 mr-2" /> Back to concept
+          </a>
+          <button type="button" disabled title="Illustrative button; this demo does not accept bookings." className="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold text-sm flex items-center">
             <PhoneIcon className="w-4 h-4 mr-2" /> Book Now
           </button>
         </div>
@@ -34,10 +33,10 @@ export default function AuthorityPreview() {
             high-converting digital hubs for local service providers.
           </p>
           <div className="flex gap-4">
-            <button className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold shadow-lg shadow-blue-600/20 hover:bg-blue-700 transition-all">
+            <button type="button" disabled title="Illustrative button." className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold">
               See Our Services
             </button>
-            <button className="border-2 border-gray-100 hover:border-blue-600 px-8 py-4 rounded-xl font-bold transition-all">
+            <button type="button" disabled title="Illustrative button." className="border-2 border-gray-100 px-8 py-4 rounded-xl font-bold">
               Read Reviews
             </button>
           </div>
@@ -55,14 +54,14 @@ export default function AuthorityPreview() {
       {/* Trust Bar */}
       <section className="py-12 border-y border-gray-100 bg-gray-50/50">
         <div className="max-w-7xl mx-auto px-6 flex flex-wrap justify-center gap-12 grayscale opacity-50 font-bold text-gray-400">
-          <span>GOOGLE RATING 5.0</span>
-          <span>TRUSTED BY 200+ LOCAL CLIENTS</span>
-          <span>LICENSED & INSURED</span>
+          <span>SPACE FOR VERIFIED REVIEWS</span>
+          <span>SPACE FOR CLIENT REFERENCES</span>
+          <span>SPACE FOR BUSINESS DETAILS</span>
         </div>
       </section>
 
       <footer className="py-12 text-center text-gray-400 text-sm">
-        &copy; 2024 Authority Business Concept. Forged by ZyForge.
+        Authority design concept by Zyforge.
       </footer>
     </div>
   );

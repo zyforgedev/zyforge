@@ -1,23 +1,37 @@
-# ZyForge - Freelance Web Development Services
+# Zyforge
 
-ZyForge is a freelance web development service delivering modern, responsive, and high-performance websites — with no upfront payment required. You pay only when your project is completed and you’re completely satisfied.
+Freelance web development from Cebu, Philippines, and practical digital tools.
+Project scope, price and timing are agreed separately for each custom inquiry.
+The public identity is Zyforge; the supplied anvil-and-flame logo is retained.
 
-This project is a Next.js application showcasing ZyForge's services and portfolio.
+## Website
 
-## Services Offered
+The Next.js site contains services, a catalogue of five published spreadsheet
+offers, four original design concepts, the project inquiry form and existing
+legal pages. Concept previews are explicitly illustrative and excluded from
+indexing. The four expansion products under development are not advertised as
+available products.
 
-- **Custom Website Design & Development:** Bringing your unique vision to life with tailored web solutions.
-- **Web App Development:** Building dynamic and interactive web applications to meet your business needs.
-- **WordPress & CMS Solutions:** Leveraging popular Content Management Systems for flexible and scalable websites.
-- **Website Optimization & Maintenance:** Ensuring your website performs optimally and stays up-to-date.
+The catalogue links to the existing Zyforge Gumroad listings. Gumroad handles
+checkout and digital delivery; this website does not collect payment details.
 
-## Why Choose ZyForge?
+## Local checks
 
-- **No upfront payment** — risk-free for you.
-- **Mobile-first, SEO-friendly designs** ensuring your site looks great and ranks well.
-- **Affordable packages** for startups & small businesses.
-- **Clear communication & fast turnaround times** to keep your project on track.
+```sh
+npm run build
+node scripts/check-inquiry.cjs
+npm run start -- --hostname 127.0.0.1 --port 4184
+```
 
-From sleek landing pages to powerful web applications, ZyForge helps bring your ideas to life — on time, on budget, and built to perform.
+The inquiry check uses a stubbed email provider and sends no email. Native browser
+checks cover catalogue destinations, project routes, mobile layout, keyboard
+navigation, required fields, attachment selection/removal and the review step.
+Real provider delivery and production hosting still require verification.
 
-Let’s forge your next big idea into reality.
+## Deployment
+
+See [deployment and indexing](docs/DEPLOYMENT.md) and [design direction](DESIGN.md).
+Do not commit environment files or keys. The existing Vercel account was observed
+on Hobby, whose commercial-use restriction requires a different eligible host
+under the current zero-upfront-cost decision. The prepared changes are local;
+they have not been pushed, deployed or submitted to Search Console.
