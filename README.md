@@ -26,12 +26,22 @@ npm run start -- --hostname 127.0.0.1 --port 4184
 The inquiry check uses a stubbed email provider and sends no email. Native browser
 checks cover catalogue destinations, project routes, mobile layout, keyboard
 navigation, required fields, attachment selection/removal and the review step.
-Real provider delivery and production hosting still require verification.
+Netlify production is deployed from `main`. Two approved internal inquiries were
+delivered through Resend on 7 October 2026: one without files and one with the
+public logo. The downloaded received logo matches the original SHA256. These
+tests are excluded from customer leads and sales.
 
 ## Deployment
 
 See [deployment and indexing](docs/DEPLOYMENT.md) and [design direction](DESIGN.md).
-Do not commit environment files or keys. The existing Vercel account was observed
-on Hobby, whose commercial-use restriction requires a different eligible host
-under the current zero-upfront-cost decision. The prepared changes are local;
-they have not been pushed, deployed or submitted to Search Console.
+Do not commit environment files or keys. Netlify Free hosts this business site,
+with public production and private deploy previews. The owner entered the
+Production-only `RESEND_API_KEY`; the agent did not read it. The verified sender is
+configured through `RESEND_FROM_EMAIL`.
+
+Porkbun's nameservers now delegate `zyforge.com` to Netlify. Its DNS zone preserves
+Google ownership verification and the Vercel wildcard used by HyUI. The previous
+Vercel deployment remains available while custom-domain propagation and TLS are
+checked. Search Console domain ownership is verified under Zyforge's Google
+account. Sitemap submission and Google indexing of the updated site remain open.
+See the deployment document for the current release gates and rollback.
