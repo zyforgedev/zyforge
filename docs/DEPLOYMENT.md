@@ -1,8 +1,9 @@
 # Deployment and indexing
 
 Updated 7 October 2026. PR #1 is merged into `main` as
-`bddf4341902183a5f3539954b024994c44031ce8`. Netlify production deploy
-`6ac6225e8a98eb3a06ea3f8a` is Published from that commit, with public production
+`bddf4341902183a5f3539954b024994c44031ce8`. Before this verification-note update,
+source head `43a86639783ae5850691a5a662ce536c74c626b3` was deployed as Published
+Netlify production `6ac626dce0a0980008fb6d96`, with public production
 and private previews. The owner completed account/access consent and entered the
 Production-only secret; the agent did not create or read the key. Two approved
 internal inquiries show both the form's success state and Resend's Delivered event
@@ -11,13 +12,20 @@ file's SHA256. These tests are not customer leads.
 
 Porkbun's four Netlify nameservers were saved and confirmed by reopening its
 editor. A public Google DNS lookup sees the four assigned nameservers, and the
-apex A records match the Netlify subdomain's A records. Netlify's first manual
-verification passed; a later check still reported that the custom domain was not
-served by Netlify. The browser still displays the old Vercel site. Custom-domain
-propagation, TLS and live crawl-file checks remain open; preserve the previous
-deployment until these pass. No paid plan, trial or domain transfer was used.
+apex A records match the Netlify subdomain's A records. Netlify issued a Let's
+Encrypt certificate for `*.zyforge.com` and `zyforge.com` at 7:21 PM Manila time.
+The in-app browser now loads the updated HTTPS homepage, catalogue and inquiry
+form on the custom domain; `https://www.zyforge.com/` redirects to the primary
+`https://zyforge.com/`. Vercel's main project currently has no attached domains;
+the preserved zone lists only HyUI as a connected project. The agent did not
+perform a further domain removal in this check. Keep the previous deployment and
+zone for rollback. No paid plan, trial or registrar transfer was used.
 Search Console domain ownership is verified under Zyforge's Google account using
-an additional TXT record. Sitemap submission and indexing of the update remain open.
+an additional TXT record. The sitemap was submitted on 7 October and Google reports
+Success, last read 7 October, with eight discovered pages. Both homepage and products
+live tests report that the URL is available to Google and can be indexed. Indexing
+requests for those two URLs are confirmed in the priority crawl queue. These
+requests do not confirm indexing, rankings, traffic growth or customer inquiries.
 
 ## Host
 
@@ -61,8 +69,8 @@ domain lock, privacy and DNSSEC settings were not changed.
 Assigned nameservers: `dns1.p07.nsone.net`, `dns2.p07.nsone.net`,
 `dns3.p07.nsone.net`, `dns4.p07.nsone.net`. Previous nameservers for rollback:
 `ns1.vercel-dns.com`, `ns2.vercel-dns.com`. Preserve the Vercel project, its previous
-deployment and the separate HyUI project. Remove only the main site's Vercel
-domain attachment after Netlify's custom-domain HTTPS and redirects pass.
+deployment and the separate HyUI project. The main site's Vercel domain attachment
+is now absent, confirmed after Netlify's custom-domain HTTPS and redirects passed.
 
 HyUI's existing HTTPS page and assets load, but the observed app renders blank
 with a JavaScript initialization error. Its source, deployment and DNS target were
@@ -101,19 +109,26 @@ The prepared sitemap lists eight canonical URLs: home, products, four concept
 details and two existing legal pages. It omits the inquiry and four illustrative
 previews, which have noindex/follow metadata. Unknown concept slugs return a 404.
 The local robots source allows crawling and references the canonical sitemap.
-The browser blocked opening local robots.txt, so live crawl-file retrieval remains
-unverified. Do not retry that blocked target through another tool.
+The browser blocked opening local robots.txt and, separately, the custom-domain
+sitemap.xml. Neither blocked target was retried through another tool. Search
+Console's normal sitemap submission succeeded and discovered all eight URLs. Its
+live homepage and products tests passed; the prior index report also shows crawling
+and indexing allowed for the homepage. Direct browser crawl-file retrieval remains
+unverified.
 
-After the intended site is live:
+For subsequent checks:
 
 1. Open Google Search Console under the Zyforge Google identity. Select an existing
-   verified zyforge.com property or have the owner complete verification if absent.
+   verified zyforge.com property. Preserve both Google TXT verification records.
 2. Confirm the actual site's sitemap can be fetched and submit
    `https://zyforge.com/sitemap.xml` using the Sitemaps report. Record its actual
-   status and processing errors, not merely a successful form click.
+   status and processing errors, not merely a successful form click. The current
+   submission is Success with eight discovered pages; do not submit duplicates.
 3. Inspect the canonical home and products URLs. Check crawl/index permissions and
    rendered content; request indexing where available. A request is not proof that
-   Google indexed or ranked the page.
+   Google indexed or ranked the page. Both requests are queued. The prior homepage
+   index record selected `www` as a different canonical; the current redirect and
+   apex canonical are verified, so reassess Google's canonical after recrawling.
 4. Record subsequent Search Console impressions/clicks and qualified inquiries by
    observation window. Do not infer leads from owner checks or link previews.
 
